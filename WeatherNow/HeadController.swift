@@ -11,8 +11,8 @@ class HeadController: UIViewController {
     
     weak var delegateHead: HeadControllerDelegate?
   
-    private let cityLabel: UILabel = {
-       let lbl = UILabel()
+    private let cityLabel: UILabelWithPadding = {
+        let lbl = UILabelWithPadding()
         lbl.text = "New York"
         lbl.font = UIFont(name: "Verdana", size: 14)
         lbl.setSize(width: 111, height: 33)
@@ -36,8 +36,10 @@ class HeadController: UIViewController {
     
     
     func configureUI() {
-        view.backgroundColor = .blue
+        view.backgroundColor = .green
         view.addSubview(cityLabel)
+        cityLabel.anchr(top: view.safeAreaLayoutGuide.topAnchor, paddingLeft: -33, paddingRight: -33)
+        
     }
 }
 

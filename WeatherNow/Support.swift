@@ -1,6 +1,17 @@
 import UIKit
 
 
+class UILabelWithPadding: UILabel {
+    
+    var topInset: CGFloat = 11
+    var leftInset: CGFloat = 11
+    
+    override func drawText(in rect: CGRect) {
+        let insets: UIEdgeInsets = UIEdgeInsets(top: self.topInset, left: leftInset, bottom: 0, right: 0)
+        return super.drawText(in: rect.inset(by: insets))
+    }
+}
+
 extension UIViewController {
     
     func presentAlert(title: String, message: String) {

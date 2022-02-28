@@ -26,6 +26,7 @@ class ContainerController: UIViewController, TableControllerDelegate, HeadContro
     }
     
     func configure() {
+        view.backgroundColor = .systemBackground
         configureHeadController()
         configureTableController()
     }
@@ -34,8 +35,8 @@ class ContainerController: UIViewController, TableControllerDelegate, HeadContro
         print("configuring HeadController")
         addChild(headController)
         headController.didMove(toParent: self)
-        view.addSubview(tableController.view)
-        headController.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+        view.addSubview(headController.view)
+        headController.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height - 666)
         headController.delegateHead = self
     }
     
@@ -44,7 +45,7 @@ class ContainerController: UIViewController, TableControllerDelegate, HeadContro
         addChild(tableController)
         tableController.didMove(toParent: self)
         view.addSubview(tableController.view)
-        tableController.view.frame = CGRect(x: 0, y: 122, width: self.view.bounds.width - 88, height: self.view.bounds.height - 122)
+        tableController.view.frame = CGRect(x: 0, y: headController.view.bounds.maxY, width: self.view.bounds.width, height: self.view.bounds.height)
         tableController.delegateTable = self
     }
 }
