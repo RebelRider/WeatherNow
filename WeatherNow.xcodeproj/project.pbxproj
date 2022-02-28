@@ -13,11 +13,10 @@
 		417B08F827CB5928004524EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 417B08F727CB5928004524EC /* Assets.xcassets */; };
 		417B08FB27CB5928004524EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 417B08F927CB5928004524EC /* LaunchScreen.storyboard */; };
 		417B090327CB65B4004524EC /* ContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B090227CB65B4004524EC /* ContainerController.swift */; };
-		417B090527CB684A004524EC /* HeadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B090427CB684A004524EC /* HeadController.swift */; };
-		417B090727CB6882004524EC /* TableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B090627CB6882004524EC /* TableController.swift */; };
 		417B090927CB7D62004524EC /* LocationInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B090827CB7D62004524EC /* LocationInputController.swift */; };
 		417B090B27CB7DC4004524EC /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B090A27CB7DC4004524EC /* LocationHandler.swift */; };
 		417B090D27CB7DEB004524EC /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B090C27CB7DEB004524EC /* Support.swift */; };
+		41B2AE7D27CCB8D40063FE56 /* TableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2AE7C27CCB8D40063FE56 /* TableItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,11 +28,10 @@
 		417B08FA27CB5928004524EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		417B08FC27CB5928004524EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		417B090227CB65B4004524EC /* ContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerController.swift; sourceTree = "<group>"; };
-		417B090427CB684A004524EC /* HeadController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadController.swift; sourceTree = "<group>"; };
-		417B090627CB6882004524EC /* TableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableController.swift; sourceTree = "<group>"; };
 		417B090827CB7D62004524EC /* LocationInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInputController.swift; sourceTree = "<group>"; };
 		417B090A27CB7DC4004524EC /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHandler.swift; sourceTree = "<group>"; };
 		417B090C27CB7DEB004524EC /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
+		41B2AE7C27CCB8D40063FE56 /* TableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,8 +71,7 @@
 				417B08F927CB5928004524EC /* LaunchScreen.storyboard */,
 				417B08FC27CB5928004524EC /* Info.plist */,
 				417B090227CB65B4004524EC /* ContainerController.swift */,
-				417B090427CB684A004524EC /* HeadController.swift */,
-				417B090627CB6882004524EC /* TableController.swift */,
+				41B2AE7C27CCB8D40063FE56 /* TableItem.swift */,
 				417B090C27CB7DEB004524EC /* Support.swift */,
 				417B090827CB7D62004524EC /* LocationInputController.swift */,
 				417B090A27CB7DC4004524EC /* LocationHandler.swift */,
@@ -154,12 +151,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				417B090927CB7D62004524EC /* LocationInputController.swift in Sources */,
-				417B090727CB6882004524EC /* TableController.swift in Sources */,
 				417B08EF27CB5927004524EC /* AppDelegate.swift in Sources */,
-				417B090527CB684A004524EC /* HeadController.swift in Sources */,
 				417B090D27CB7DEB004524EC /* Support.swift in Sources */,
 				417B08F127CB5927004524EC /* SceneDelegate.swift in Sources */,
 				417B090327CB65B4004524EC /* ContainerController.swift in Sources */,
+				41B2AE7D27CCB8D40063FE56 /* TableItem.swift in Sources */,
 				417B090B27CB7DC4004524EC /* LocationHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
