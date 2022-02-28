@@ -31,7 +31,7 @@ class ContainerController: UIViewController, UITableViewDelegate, UITableViewDat
     private let cityLabel: UILabelWithPadding = {
         let lblc = UILabelWithPadding()
         lblc.text = "New York"
-        lblc.font = UIFont(name: "Verdana", size: 14)
+        lblc.font = UIFont(name: "Verdana", size: 18)
         lblc.setSize(width: 111, height: 33)
         return lblc
     }()
@@ -39,7 +39,7 @@ class ContainerController: UIViewController, UITableViewDelegate, UITableViewDat
     private let temperatureLabel: UILabelWithPadding = {
         let lblt = UILabelWithPadding()
         lblt.text = "+25k"
-        lblt.font = UIFont(name: "Verdana", size: 14)
+        lblt.font = UIFont(name: "Verdana", size: 22)
         lblt.setSize(width: 111, height: 33)
         return lblt
     }()
@@ -67,9 +67,9 @@ class ContainerController: UIViewController, UITableViewDelegate, UITableViewDat
         configureUI()
     }
     
-    override func viewDidLayoutSubviews() {
-        configureUI()
-    }
+//    override func viewDidLayoutSubviews() {
+//        reconfigureUI()
+//    }
     
     
   
@@ -77,12 +77,12 @@ class ContainerController: UIViewController, UITableViewDelegate, UITableViewDat
     func configureUI() {
         print("configuring UI")
         
+        
         let stack = UIStackView(arrangedSubviews: [cityLabel, temperatureLabel])
         stack.axis = .horizontal
         stack.distribution = .fillEqually
         stack.spacing = 22
         stack.backgroundColor = .systemBlue
-        
         
         
         headView.addSubview(stack)
