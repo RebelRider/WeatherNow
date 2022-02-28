@@ -1,5 +1,15 @@
 import UIKit
 
+
+extension UIViewController {
+    
+    func presentAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+}
+
 extension UIView {
     
     func anchr(top: NSLayoutYAxisAnchor? = nil,
@@ -49,6 +59,14 @@ extension UIView {
     func centerX(_ view: UIView) {
         translatesAutoresizingMaskIntoConstraints = false
         centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    func centerY(_ view: UIView, leftAnchor: NSLayoutXAxisAnchor? = nil, paddingLeft: CGFloat = 0, constant: CGFloat = 0) {
+        translatesAutoresizingMaskIntoConstraints = false
+        centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: constant).isActive = true
+        if let left = leftAnchor {
+            anchr(left: left, paddingLeft: paddingLeft)
+        }
     }
     
 }

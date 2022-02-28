@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		417B08EF27CB5927004524EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B08EE27CB5927004524EC /* AppDelegate.swift */; };
 		417B08F127CB5927004524EC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B08F027CB5927004524EC /* SceneDelegate.swift */; };
-		417B08F327CB5927004524EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B08F227CB5927004524EC /* ViewController.swift */; };
 		417B08F627CB5927004524EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 417B08F427CB5927004524EC /* Main.storyboard */; };
 		417B08F827CB5928004524EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 417B08F727CB5928004524EC /* Assets.xcassets */; };
 		417B08FB27CB5928004524EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 417B08F927CB5928004524EC /* LaunchScreen.storyboard */; };
@@ -25,7 +24,6 @@
 		417B08EB27CB5927004524EC /* WeatherNow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherNow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		417B08EE27CB5927004524EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		417B08F027CB5927004524EC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		417B08F227CB5927004524EC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		417B08F527CB5927004524EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		417B08F727CB5928004524EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		417B08FA27CB5928004524EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -70,7 +68,6 @@
 			children = (
 				417B08EE27CB5927004524EC /* AppDelegate.swift */,
 				417B08F027CB5927004524EC /* SceneDelegate.swift */,
-				417B08F227CB5927004524EC /* ViewController.swift */,
 				417B08F427CB5927004524EC /* Main.storyboard */,
 				417B08F727CB5928004524EC /* Assets.xcassets */,
 				417B08F927CB5928004524EC /* LaunchScreen.storyboard */,
@@ -78,9 +75,9 @@
 				417B090227CB65B4004524EC /* ContainerController.swift */,
 				417B090427CB684A004524EC /* HeadController.swift */,
 				417B090627CB6882004524EC /* TableController.swift */,
+				417B090C27CB7DEB004524EC /* Support.swift */,
 				417B090827CB7D62004524EC /* LocationInputController.swift */,
 				417B090A27CB7DC4004524EC /* LocationHandler.swift */,
-				417B090C27CB7DEB004524EC /* Support.swift */,
 			);
 			path = WeatherNow;
 			sourceTree = "<group>";
@@ -158,7 +155,6 @@
 			files = (
 				417B090927CB7D62004524EC /* LocationInputController.swift in Sources */,
 				417B090727CB6882004524EC /* TableController.swift in Sources */,
-				417B08F327CB5927004524EC /* ViewController.swift in Sources */,
 				417B08EF27CB5927004524EC /* AppDelegate.swift in Sources */,
 				417B090527CB684A004524EC /* HeadController.swift in Sources */,
 				417B090D27CB7DEB004524EC /* Support.swift in Sources */,
