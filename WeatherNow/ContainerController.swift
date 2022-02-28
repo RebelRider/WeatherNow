@@ -31,17 +31,41 @@ class ContainerController: UIViewController, UITableViewDelegate, UITableViewDat
     private let cityLabel: UILabelWithPadding = {
         let lblc = UILabelWithPadding()
         lblc.text = "New York"
-        lblc.font = UIFont(name: "Verdana", size: 18)
-        lblc.setSize(width: 111, height: 33)
+        lblc.font = lblc.font.withSize(28)
+        lblc.setSize(width: 266, height: 44)
+        lblc.backgroundColor = .brown
         return lblc
+    }()
+    
+    private let locationMenuButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "line.3.horizontal")?
+                            .withTintColor(.green, renderingMode: .alwaysOriginal)
+                            .resized(to: CGSize(width: 25, height: 25)), for: .normal)
+        button.setImage(UIImage(systemName: "line.3.horizontal.decrease")?
+                            .withTintColor(.green, renderingMode: .alwaysOriginal)
+                            .resized(to: CGSize(width: 25, height: 25)), for: UIControl.State.highlighted)
+        button.addTarget(self, action: #selector(showLocationMenuController), for: .touchUpInside)
+        
+        return button
     }()
     
     private let temperatureLabel: UILabelWithPadding = {
         let lblt = UILabelWithPadding()
         lblt.text = "+25k"
-        lblt.font = UIFont(name: "Verdana", size: 22)
-        lblt.setSize(width: 111, height: 33)
+        lblt.font = lblt.font.withSize(33)
+        lblt.setSize(width: 111, height: 44)
         return lblt
+    }()
+    
+    private let cloudyImageContainer: UIImageView = {
+        var view = UIImageView()
+        let img = UIImage(systemName: "cloud.drizzle.fill")!
+                    .withTintColor(.white, renderingMode: .alwaysOriginal)
+                    .resized(to: CGSize(width: 66, height: 66))
+        let imgView = UIImageView(image: img)
+        view.addSubview(imgView)
+        return view
     }()
     
     
@@ -67,31 +91,43 @@ class ContainerController: UIViewController, UITableViewDelegate, UITableViewDat
         configureUI()
     }
     
-//    override func viewDidLayoutSubviews() {
-//        reconfigureUI()
-//    }
+    override func viewDidLayoutSubviews() {
+        reconfigureUI()
+    }
     
     
-  
+    func reconfigureUI() {
+        
+    }
 
     func configureUI() {
         print("configuring UI")
         
         
-        let stack = UIStackView(arrangedSubviews: [cityLabel, temperatureLabel])
-        stack.axis = .horizontal
-        stack.distribution = .fillEqually
-        stack.spacing = 22
-        stack.backgroundColor = .systemBlue
+        let stackH1 = UIStackView(arrangedSubviews: [cityLabel, locationMenuButton])
+        stackH1.axis = .horizontal
+        stackH1.distribution = .equalSpacing
+        stackH1.spacing = 17
+        stackH1.backgroundColor = .systemBlue
         
+        let stackH2 = UIStackView(arrangedSubviews: [temperatureLabel, cloudyImageContainer])
+        stackH2.axis = .horizontal
+        stackH2.distribution = .equalCentering
+        stackH2.spacing = 22
+        stackH2.backgroundColor = .systemTeal
         
-        headView.addSubview(stack)
-        stack.anchr(top: headView.topAnchor,
+        headView.addSubview(stackH1)
+        headView.addSubview(stackH2)
+        stackH1.anchr(top: headView.topAnchor,
                     left: headView.leftAnchor,
                     right: headView.rightAnchor,
                     paddingTop: 33,
-                    paddingLeft: 11,
-                    paddingRight: 11)
+                    paddingLeft: 5,
+                    paddingRight: 5)
+        stackH2.anchr(top: stackH1.bottomAnchor,
+                      paddingTop: 0,
+                      paddingLeft: 45,
+                      paddingRight: 25)
         headView.insetsLayoutMarginsFromSafeArea = true
         
         
@@ -101,6 +137,12 @@ class ContainerController: UIViewController, UITableViewDelegate, UITableViewDat
         view.addSubview(tableView)
         tableView.frame = CGRect(x: 0, y: headView.bounds.maxY, width: self.view.bounds.width, height: self.view.bounds.height)
         
+    }
+    
+    @objc func showLocationMenuController() {
+        print("DEBUG: show Location Menu Controller")
+        let contrller = LocationInputController()
+        navigationController?.pushViewController(contrller, animated: true)
     }
     
 

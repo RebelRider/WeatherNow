@@ -12,6 +12,16 @@ class UILabelWithPadding: UILabel {
     }
 }
 
+extension UIImage {
+  func resized(to newSize: CGSize) -> UIImage? {
+    UIGraphicsBeginImageContextWithOptions(newSize, false, 0)
+    defer { UIGraphicsEndImageContext() }
+
+    draw(in: CGRect(origin: .zero, size: newSize))
+    return UIGraphicsGetImageFromCurrentImageContext()
+  }
+}
+
 extension UIViewController {
     
     func presentAlert(title: String, message: String) {
