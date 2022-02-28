@@ -30,14 +30,14 @@ class HeadController: UIViewController {
     override func viewDidLoad() {
         print("viewDidLoad HeadController")
         super.viewDidLoad()
-        view.backgroundColor = .blue
         configureUI()
     }
     
     
     
     func configureUI() {
-        
+        view.backgroundColor = .blue
+        view.addSubview(cityLabel)
     }
 }
 
