@@ -1,5 +1,5 @@
 //
-//  ContainerController.swift
+//  MainViewController.swift
 //  WeatherNow
 //
 //  Created by Kirill Smirnov on 27.02.2022.
@@ -7,24 +7,22 @@
 
 import UIKit
 
-class ContainerController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MainViewController: UIViewController {
     
-    //MARK: - table funcs
+    //MARK: - view lifecycle
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("numberOfRowsInSection")
-        return days.count
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureUI()
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-        cell.textLabel?.text = days[indexPath.row]
-        return cell
+    override func viewDidLayoutSubviews() {
+        reconfigureUI()
     }
     
     //MARK: - head container elements
-    
     private let isExpanded = true
+    
     private lazy var headView: UIView = {
         let hv = UIView()
         hv.backgroundColor = .green
@@ -100,13 +98,15 @@ class ContainerController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     private let daysForecast: UIView = {
-        let df = UIView()
-        let lblt = UILabelWithPadding()
-        lblt.text = "days"
-        lblt.font = lblt.font.withSize(33)
-        lblt.setSize(width: 111, height: 222)
-        df.addSubview(lblt)
-       return df
+        let mainView = UIView()//scrolll
+//        let scrlView = UIScrollView()
+//        let lblt = UILabelWithPadding()
+//        lblt.text = "days"
+//        lblt.font = lblt.font.withSize(33)
+//        lblt.setSize(width: 111, height: 222)
+//        mainView.addSubview(lblt)
+//        mainView.backgroundColor = .red
+       return mainView
     }()
     
     
@@ -126,18 +126,29 @@ class ContainerController: UIViewController, UITableViewDelegate, UITableViewDat
         return tableView
     }()
     
-    //MARK: - viewDidLoad
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureUI()
+}
+
+
+//MARK: - UITableViewDataSource
+extension MainViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("numberOfRowsInSection")
+        return days.count
     }
     
-    override func viewDidLayoutSubviews() {
-        reconfigureUI()
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
+        cell.textLabel?.text = days[indexPath.row]
+        return cell
     }
+}
+
+extension MainViewController: UITableViewDelegate {
     
-    
+}
+
+private extension MainViewController {
     //MARK: - view configuration
     
     func reconfigureUI() {
@@ -179,9 +190,9 @@ class ContainerController: UIViewController, UITableViewDelegate, UITableViewDat
         headView.insetsLayoutMarginsFromSafeArea = true
         windPressureHumidityContainer.anchr(top: stackH2.bottomAnchor,
                                             paddingTop: 3,
-                                            paddingLeft: 5,
+                                            paddingLeft: 15,
                                             paddingRight: 5)
-        daysForecast.anchr(top: cloudyImageContainer.bottomAnchor, left: windPressureHumidityContainer.rightAnchor,
+        daysForecast.anchr(top:cloudyImageContainer.topAnchor, left: cloudyImageContainer.leftAnchor,
                            paddingTop: 1,
                            paddingLeft: 1,
                            paddingBottom: 1,
@@ -195,7 +206,6 @@ class ContainerController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.frame = CGRect(x: 0, y: headView.bounds.maxY, width: self.view.bounds.width, height: self.view.bounds.height)
     }
     
-    
     //MARK: - selectors
     
     @objc func showLocationMenuController() {
@@ -204,5 +214,4 @@ class ContainerController: UIViewController, UITableViewDelegate, UITableViewDat
         navigationController?.pushViewController(contrller, animated: true)
     }
     
-
 }
