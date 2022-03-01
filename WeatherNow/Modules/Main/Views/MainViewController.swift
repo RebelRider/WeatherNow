@@ -62,8 +62,8 @@ class MainViewController: UIViewController {
     private let cloudyImageContainer: UIImageView = {
         var view = UIImageView()
         let img = UIImage(systemName: "cloud.drizzle.fill")!
-                    .withTintColor(.white, renderingMode: .alwaysOriginal)
-                    .resized(to: CGSize(width: 66, height: 66))
+            .withTintColor(.white, renderingMode: .alwaysOriginal)
+            .resized(to: CGSize(width: 66, height: 66))
         let imgView = UIImageView(image: img)
         view.addSubview(imgView)
         return view
@@ -72,7 +72,7 @@ class MainViewController: UIViewController {
     
     
     private let windPressureHumidityContainer: UIView = {
-       let wphc = UIView()
+        let wphc = UIView()
         
         let wind = UILabel()
         let pressure = UILabel()
@@ -96,42 +96,83 @@ class MainViewController: UIViewController {
         return wphc
     }()
     
-    
-    private let daysForecast: UIView = {
-        let mainView = UIView()//scrolll
-//        let scrlView = UIScrollView()
-//        let lblt = UILabelWithPadding()
-//        lblt.text = "days"
-//        lblt.font = lblt.font.withSize(33)
-//        lblt.setSize(width: 111, height: 222)
-//        mainView.addSubview(lblt)
-//        mainView.backgroundColor = .red
-       return mainView
+    //MARK: - days scroll view
+    private let daysForecastStack: UIStackView = {
+        let dfc = UIStackView()
+        dfc.axis = .horizontal
+        dfc.spacing = 5
+        dfc.backgroundColor = .systemTeal
+        return dfc
     }()
     
-    
-    //MARK: - lower table
-    
-    var days =     ["Monday", "Tuesday", "Friday", "Sunday", "Monday", "Tuesday", "Friday", "Sunday"]
+    private let daysForecastScroll: UIScrollView = {
+        let dfs = UIScrollView()
+        dfs.backgroundColor = .green
+        return dfs
+    }()
 
-    private let reuseIdentifier = "cell"
-    private lazy var tableView: UITableView = {
-       let tableView = UITableView()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
-        tableView.isScrollEnabled = true
-        tableView.separatorStyle = .singleLine
-        tableView.backgroundColor = .brown
-        return tableView
+    private let daysForecast: UIView = {
+        let df = UIView()
+        df.backgroundColor = .red
+        return df
     }()
     
+    let tffff: UILabel = {
+       let t = UILabel()
+        t.text = "ttttt fff xcc "
+        t.font = t.font.withSize(33)
+        t.setSize(width: 111, height: 44)
+        return t
+    }()
+    
+    let tffddf: UILabel = {
+       let t = UILabel()
+        t.text = "ttccadsfgagatt "
+        t.font = t.font.withSize(33)
+        t.setSize(width: 111, height: 44)
+        return t
+    }()
+
+//        let mainView = UIView()
+////        let scrlView = UIScrollView(frame: mainView.bounds)
+////
+//        let image = UIImageView()
+//        image.image = UIImage(systemName: "car")!.resized(to: CGSize(width: 66, height: 66))
+//        mainView.addSubview(image)
+////
+////        mainView.addSubview(scrlView)
+//        image.anchr(top: mainView.topAnchor,
+//                        paddingTop: 0,
+//                        paddingLeft: 45,
+//                        paddingRight: 25)
+//        mainView.backgroundColor = .red
+//
+//       return mainView
+//    }()
+
+
+//MARK: - lower table
+
+var days =     ["Monday", "Tuesday", "Friday", "Sunday", "Monday", "Tuesday", "Friday", "Sunday"]
+
+private let reuseIdentifier = "cell"
+private lazy var tableView: UITableView = {
+    let tableView = UITableView()
+    tableView.delegate = self
+    tableView.dataSource = self
+    tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+    tableView.isScrollEnabled = true
+    tableView.separatorStyle = .singleLine
+    tableView.backgroundColor = .brown
+    return tableView
+}()
+
 }
 
 
 //MARK: - UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("numberOfRowsInSection")
         return days.count
@@ -148,6 +189,7 @@ extension MainViewController: UITableViewDelegate {
     
 }
 
+
 private extension MainViewController {
     //MARK: - view configuration
     
@@ -155,7 +197,7 @@ private extension MainViewController {
         headView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height - (self.view.bounds.height / 3 * 2) - 44)
         tableView.frame = CGRect(x: 0, y: headView.bounds.maxY, width: self.view.bounds.width, height: self.view.bounds.height)
     }
-
+    
     func configureUI() {
         print("configuring UI")
         
@@ -171,34 +213,46 @@ private extension MainViewController {
         stackH2.distribution = .equalCentering
         stackH2.spacing = 22
         stackH2.backgroundColor = .systemTeal
-
+        
+        daysForecast.addSubview(tffff)
+//        daysForecastStack.addArrangedSubview(tffff)
+//        daysForecastStack.addArrangedSubview(tffddf)
         
         headView.addSubview(stackH1)
         headView.addSubview(stackH2)
         headView.addSubview(windPressureHumidityContainer)
         headView.addSubview(daysForecast)
+
+        //daysForecastScroll.anchr(top: daysForecast.topAnchor, bottom: daysForecast.bottomAnchor, right: daysForecast.rightAnchor)
+        //daysForecastStack.anchr(top: daysForecast.topAnchor, bottom: daysForecast.bottomAnchor, right: daysForecast.rightAnchor)
+
+        
+        
         stackH1.anchr(top: headView.topAnchor,
-                    left: headView.leftAnchor,
-                    right: headView.rightAnchor,
-                    paddingTop: 33,
-                    paddingLeft: 5,
-                    paddingRight: 5)
+                      left: headView.leftAnchor,
+                      right: headView.rightAnchor,
+                      paddingTop: 33,
+                      paddingLeft: 5,
+                      paddingRight: 5)
         stackH2.anchr(top: stackH1.bottomAnchor,
                       paddingTop: 0,
                       paddingLeft: 45,
                       paddingRight: 25)
         headView.insetsLayoutMarginsFromSafeArea = true
-        windPressureHumidityContainer.anchr(top: stackH2.bottomAnchor,
+        windPressureHumidityContainer.anchr(top: stackH2.bottomAnchor, left: stackH2.leftAnchor,
                                             paddingTop: 3,
                                             paddingLeft: 15,
                                             paddingRight: 5)
-        daysForecast.anchr(top:cloudyImageContainer.topAnchor, left: cloudyImageContainer.leftAnchor,
+        daysForecast.anchr(top:stackH2.bottomAnchor, left: cloudyImageContainer.leftAnchor,
                            paddingTop: 1,
                            paddingLeft: 1,
                            paddingBottom: 1,
                            paddingRight: 1)
+        daysForecast.backgroundColor = .red
+        daysForecast.setSize(width: 332, height: 44)
+        daysForecast.frame = CGRect(x: 0, y: 14, width: 333, height: 44)
         
-        
+        //MARK: - view configuration (adding subviews)
         
         view.addSubview(headView)
         headView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height - (self.view.bounds.height / 3 * 2) - 44)
