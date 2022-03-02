@@ -117,6 +117,19 @@ class HeadView: UIView {
       
         
         scrollView.addSubview(stackDaysForecast)
+        
+        stackDaysForecast.anchr(top: scrollView.topAnchor,
+                                left: scrollView.leftAnchor,
+                                bottom: scrollView.bottomAnchor,
+                                right: scrollView.rightAnchor,
+                                paddingTop: 1,
+                                paddingLeft: 1,
+                                paddingBottom: 1,
+                                paddingRight: 1)
+//                                width: 333,
+//                                height: scrollView.heightAnchor)
+        
+        
        
         scrollView.showsHorizontalScrollIndicator = true
         scrollView.backgroundColor = .cyan
@@ -152,22 +165,10 @@ class HeadView: UIView {
         
             let stackH3 = UIStackView(arrangedSubviews: [windPressureHumidityContainer, daysForecastContainer])
             stackH3.axis = .horizontal
-            stackH3.distribution = .fillEqually
+            stackH3.distribution = .fill
             stackH3.spacing = 6
             stackH3.backgroundColor = .yellow
-                
-        
-//        daysForecastContainer.anchr(top: cloudyImageContainer.bottomAnchor,
-//                                    //left: windPressureHumidityContainer.rightAnchor,
-//                                    //bottom: stackH3.bottomAnchor,
-//                                    //right: stackH3.rightAnchor,
-//                                    paddingTop: 1,
-//                                    paddingLeft: 1,
-//                                    paddingBottom: 1,
-//                                    paddingRight: 1)
-////                                    width: <#T##CGFloat?#>,
-////                                    height: <#T##CGFloat?#>)
-        
+               
             addSubview(stackH1)
             addSubview(stackH2)
             addSubview(stackH3)
