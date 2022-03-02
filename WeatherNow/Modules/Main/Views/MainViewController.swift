@@ -15,7 +15,8 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(headView)
+        view.backgroundColor = .systemBackground
+        //view.addSubview(headView)
         configureUI()
     }
     
@@ -36,7 +37,7 @@ private lazy var tableView: UITableView = {
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
     tableView.isScrollEnabled = true
     tableView.separatorStyle = .singleLine
-    tableView.backgroundColor = .brown
+    tableView.backgroundColor = .systemBackground
     return tableView
 }()
 
@@ -57,74 +58,50 @@ extension MainViewController: UITableViewDataSource {
     }
 }
 
+//MARK: - UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
-    //
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        print("DEBUG: deselect row")
+    }
 }
 
 
 private extension MainViewController {
     //MARK: - view configuration
     func reconfigureUI() {
-        headView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height - (self.view.bounds.height / 3 * 2) - 44)
-        tableView.frame = CGRect(x: 0, y: headView.bounds.maxY, width: self.view.bounds.width, height: self.view.bounds.height)
+        print("reconfiguring UI, isExpanded \(mustBeExpanded)")
+        headView.frame = CGRect(x: 0,
+                                y: 0,
+                                width: self.view.bounds.width,
+                                height: mustBeExpanded ? (self.view.bounds.height - ((self.view.bounds.height / 3 * 2) - 22)) : (self.view.bounds.height - (self.view.bounds.height / 2) - 44)
+//                                height: ?????
+                                )
+        tableView.frame = CGRect(x: 0,
+                                 y: headView.bounds.maxY,
+                                 width: self.view.bounds.width,
+                                 height: self.view.bounds.height)
+        if mustBeExpanded {
+            headView.windPressureHumidityContainer.isHidden = false
+            headView.daysForecastContainer.isHidden = false
+        } else {
+            headView.windPressureHumidityContainer.isHidden = true
+            headView.daysForecastContainer.isHidden = true
+        }
     }
     
     func configureUI() {
-        print("configuring UI")
-        
-        let stackH1 = UIStackView(arrangedSubviews: [headView.cityLabel, headView.locationMenuButton])
-        stackH1.axis = .horizontal
-        stackH1.distribution = .equalSpacing
-        stackH1.spacing = 17
-        stackH1.backgroundColor = .systemBlue
-        
-        let stackH2 = UIStackView(arrangedSubviews: [headView.temperatureLabel, headView.cloudyImageContainer])
-        stackH2.axis = .horizontal
-        stackH2.distribution = .equalCentering
-        stackH2.spacing = 22
-        stackH2.backgroundColor = .systemTeal
-        
-        
-        headView.addSubview(stackH1)
-        headView.addSubview(stackH2)
-        headView.addSubview(headView.windPressureHumidityContainer)
-        headView.addSubview(headView.daysForecastContainer)
-
-        
-        stackH1.anchr(top: headView.topAnchor,
-                      left: headView.leftAnchor,
-                      right: headView.rightAnchor,
-                      paddingTop: 33,
-                      paddingLeft: 5,
-                      paddingRight: 5)
-        stackH2.anchr(top: stackH1.bottomAnchor,
-                      paddingTop: 0,
-                      paddingLeft: 45,
-                      paddingRight: 25)
-        headView.insetsLayoutMarginsFromSafeArea = true
-        headView.windPressureHumidityContainer.anchr(top: stackH2.bottomAnchor, left: stackH2.leftAnchor,
-                                            paddingTop: 3,
-                                            paddingLeft: 15,
-                                            paddingRight: 5)
-        headView.daysForecastContainer.anchr(top:stackH2.bottomAnchor, left: headView.cloudyImageContainer.leftAnchor,
-                           paddingTop: 21,
-                           paddingLeft: 1,
-                           paddingBottom: 1,
-                           paddingRight: 1)
-        headView.daysForecastContainer.backgroundColor = .red
-        headView.daysForecastContainer.setSize(width: 332, height: 99)
-        
         view.addSubview(headView)
-        headView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height - (self.view.bounds.height / 3 * 2) - 44)
+        headView.frame = CGRect(x: 0,
+                                y: 0,
+                                width: self.view.bounds.width,
+                                height: self.view.bounds.height - (self.view.bounds.height / 3 * 2) - 44)
         view.addSubview(tableView)
-        tableView.frame = CGRect(x: 0, y: headView.bounds.maxY, width: self.view.bounds.width, height: self.view.bounds.height)
+        tableView.frame = CGRect(x: 0,
+                                 y: headView.bounds.maxY,
+                                 width: self.view.bounds.width,
+                                 height: self.view.bounds.height)
     }
     
-    //MARK: - selectors
-    @objc func showLocationMenuController() {
-        print("DEBUG: show Location Menu Controller")
-        let contrller = LocationInputController()
-        navigationController?.pushViewController(contrller, animated: true)
-    }    
     
 }

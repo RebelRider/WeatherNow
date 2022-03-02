@@ -74,6 +74,7 @@ extension UIView {
                paddingRight: CGFloat = 0,
                width: CGFloat? = nil,
                height: CGFloat? = nil) {
+        
         translatesAutoresizingMaskIntoConstraints = false
         
         if let top = top {
@@ -122,3 +123,6 @@ extension UIView {
     }
     
 }
+
+// OpenWeather API key
+// da71454ede4b43e44b98f9b1dac9efc2
