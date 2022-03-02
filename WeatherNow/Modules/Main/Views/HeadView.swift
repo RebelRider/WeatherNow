@@ -16,10 +16,10 @@ class HeadView: UIView {
 
     let cityLabel: UILabelWithPadding = {
         let lblc = UILabelWithPadding()
-        lblc.text = "New York"
+        lblc.text = "New York   hjgf"
         lblc.font = lblc.font.withSize(28)
         lblc.addShadow()
-        lblc.backgroundColor = .green
+        lblc.backgroundColor = .systemBackground
         return lblc
     }()
     
@@ -39,18 +39,16 @@ class HeadView: UIView {
     let temperatureLabel: UILabelWithPadding = {
         let lblt = UILabelWithPadding()
         lblt.text = "+25 C"
-        lblt.font = lblt.font.withSize(34)
-        //lblt.setSize(width: 133, height: 55)
+        lblt.font = lblt.font.withSize(45)
         return lblt
     }()
     
     let feelsLikeText: UILabel = {
-        let flt = UILabelWithPadding()
+        let flt = UILabel()
         flt.text = "Cloudy, feels like +16"
-        flt.font = flt.font.withSize(11)
+        flt.font = flt.font.withSize(14)
         flt.addShadow()
-        flt.backgroundColor = .green
-        //flt.anchr(paddingBottom: 15)
+        flt.backgroundColor = .systemBackground
         return flt
     }()
     
@@ -85,11 +83,6 @@ class HeadView: UIView {
         stackV1.spacing = 3
         stackV1.backgroundColor = .systemBackground
         
-//       
-//        stackV1.anchr(top: topAnchor,
-//                      paddingTop: 0,
-//                      paddingLeft: 45,
-//                      paddingRight: 25)
         return stackV1
     }()
     
@@ -114,7 +107,7 @@ class HeadView: UIView {
         stackDaysForecast.alignment = .fill
         stackDaysForecast.distribution = .fillProportionally
         stackDaysForecast.spacing = 5
-      
+        
         
         scrollView.addSubview(stackDaysForecast)
         
@@ -123,16 +116,13 @@ class HeadView: UIView {
                                 bottom: scrollView.bottomAnchor,
                                 right: scrollView.rightAnchor,
                                 paddingTop: 1,
-                                paddingLeft: 1,
+                                paddingLeft: 8,
                                 paddingBottom: 1,
                                 paddingRight: 1)
-//                                width: 333,
-//                                height: scrollView.heightAnchor)
-        
         
        
         scrollView.showsHorizontalScrollIndicator = true
-        scrollView.backgroundColor = .cyan
+        scrollView.backgroundColor = .systemBackground
         
         return scrollView
     }()
@@ -146,28 +136,25 @@ class HeadView: UIView {
             stackH1.axis = .horizontal
             stackH1.distribution = .fillProportionally
             stackH1.spacing = 11
-            stackH1.backgroundColor = .systemMint
+            stackH1.backgroundColor = .systemBackground
             
                     let stackV1 = UIStackView(arrangedSubviews: [temperatureLabel, feelsLikeText])
                     stackV1.axis = .vertical
                     stackV1.distribution = .fillProportionally
                     stackV1.spacing = 11
                     stackV1.backgroundColor = .systemBackground
-                    
-                    temperatureLabel.heightAnchor.constraint(equalToConstant: 55).isActive = true
-                    feelsLikeText.heightAnchor.constraint(equalToConstant: 22).isActive = true
         
             let stackH2 = UIStackView(arrangedSubviews: [stackV1, cloudyImageContainer])
             stackH2.axis = .horizontal
             stackH2.distribution = .fillEqually
             stackH2.spacing = 6
-            stackH2.backgroundColor = .gray
+            stackH2.backgroundColor = .systemBackground
         
             let stackH3 = UIStackView(arrangedSubviews: [windPressureHumidityContainer, daysForecastContainer])
             stackH3.axis = .horizontal
-            stackH3.distribution = .fill
+            stackH3.distribution = .fill//????????
             stackH3.spacing = 6
-            stackH3.backgroundColor = .yellow
+            stackH3.backgroundColor = .systemBackground
                
             addSubview(stackH1)
             addSubview(stackH2)
@@ -176,6 +163,7 @@ class HeadView: UIView {
             stackH1.anchr(top: safeAreaLayoutGuide.topAnchor,
                           left: safeAreaLayoutGuide.leftAnchor,
                           right: safeAreaLayoutGuide.rightAnchor,
+                          paddingTop: 19,
                           paddingBottom: 2)
             stackH2.anchr(top: stackH1.bottomAnchor,
                           left: safeAreaLayoutGuide.leftAnchor,
@@ -187,7 +175,7 @@ class HeadView: UIView {
             stackH3.anchr(top: stackH2.bottomAnchor,
                           left: safeAreaLayoutGuide.leftAnchor,
                           right: safeAreaLayoutGuide.rightAnchor,
-                          paddingTop: 9,
+                          paddingTop: 19,
                           paddingLeft: 11,
                           paddingBottom: 3,
                           paddingRight: 3)

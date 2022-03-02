@@ -11,6 +11,6 @@ class LocationInputController: UIViewController {
     override func viewDidLoad() {
         print("viewDidLoad LocationInputController")
         super.viewDidLoad()
-        view.backgroundColor = .yellow
+        view.backgroundColor = .systemBackground
     }
 }
