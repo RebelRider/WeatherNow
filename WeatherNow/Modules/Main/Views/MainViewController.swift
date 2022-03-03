@@ -24,23 +24,22 @@ class MainViewController: UIViewController {
         reconfigureUI()
     }
     
-  
-//MARK: - lower table
-
-var days =     ["Monday", "Tuesday", "Friday", "Sunday", "Monday", "Tuesday", "Friday", "Sunday"]
-
-private let reuseIdentifier = "cell"
-private lazy var tableView: UITableView = {
-    let tableView = UITableView()
-    tableView.delegate = self
-    tableView.dataSource = self
-    tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
-    tableView.isScrollEnabled = true
-    tableView.separatorStyle = .singleLine
-    tableView.backgroundColor = .systemBackground
-    return tableView
-}()
-
+    //MARK: - lower table
+    
+    var days =     ["Monday", "Tuesday", "Friday", "Sunday", "Monday", "Tuesday", "Friday", "Sunday"]
+    
+    private let reuseIdentifier = "cell"
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.isScrollEnabled = true
+        tableView.separatorStyle = .singleLine
+        tableView.backgroundColor = .systemBackground
+        return tableView
+    }()
+    
 }
 
 //MARK: - UITableViewDataSource
@@ -54,6 +53,7 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
         cell.textLabel?.text = days[indexPath.row]
+        //        cell.setModel
         return cell
     }
 }
@@ -66,45 +66,72 @@ extension MainViewController: UITableViewDelegate {
     }
 }
 
+//MARK: - Private
 
 private extension MainViewController {
-    //MARK: - view configuration
+    //MARK: - View configuration
+    
     func reconfigureUI() {
         print("reconfiguring UI, isExpanded \(mustBeExpanded)")
-        headView.frame = CGRect(x: 0,
-                                y: 0,
-                                width: self.view.bounds.width,
-                                height: mustBeExpanded ? (self.view.bounds.height - ((self.view.bounds.height / 3 * 2) - 22)) : (self.view.bounds.height - (self.view.bounds.height / 2) - 44)
-//                                height: ?????
-                                )
-        tableView.frame = CGRect(x: 0,
-                                 y: headView.bounds.maxY,
-                                 width: self.view.bounds.width,
-                                 height: self.view.bounds.height)
+        
         if mustBeExpanded {
             headView.windPressureHumidityContainer.isHidden = false
             headView.daysForecastContainer.isHidden = false
+            
         } else {
             headView.windPressureHumidityContainer.isHidden = true
             headView.daysForecastContainer.isHidden = true
         }
+        view.reloadInputViews()
         
-        tableView.anchr(top:headView.bottomAnchor)
+        headView.anchr(
+            top: view.safeAreaLayoutGuide.topAnchor,
+            left: view.safeAreaLayoutGuide.leftAnchor,
+            bottom: view.bottomAnchor,
+            right: view.safeAreaLayoutGuide.rightAnchor,
+            paddingTop: 2,
+            paddingLeft: 0,
+            paddingBottom: (view.frame.size.height / 3 * 2 ),
+            paddingRight: 0
+        )
+        
+        tableView.anchr(
+            top: headView.bottomAnchor,
+            left: view.safeAreaLayoutGuide.leftAnchor,
+            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+            right: view.safeAreaLayoutGuide.rightAnchor,
+            paddingTop: 2,
+            paddingLeft: 0,
+            paddingBottom: 0,
+            paddingRight: 0
+        )
+        
     }
     
     func configureUI() {
         view.addSubview(headView)
-        headView.frame = CGRect(x: 0,
-                                y: 0,
-                                width: self.view.bounds.width,
-                                height: self.view.bounds.height - (self.view.bounds.height / 3 * 2) - 44)
+        headView.backgroundColor = .red
         view.addSubview(tableView)
-        tableView.frame = CGRect(x: 0,
-                                 y: headView.bounds.maxY,
-                                 width: self.view.bounds.width,
-                                 height: self.view.bounds.height)
-        tableView.anchr(top:headView.bottomAnchor)
+        tableView.backgroundColor = .green
+        
+        headView.anchr(
+            top: view.safeAreaLayoutGuide.topAnchor,
+            left: view.safeAreaLayoutGuide.leftAnchor,
+            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+            right: view.safeAreaLayoutGuide.rightAnchor,
+            paddingTop: 2,
+            paddingLeft: 0,
+            paddingBottom: 0,
+            paddingRight: 0
+        )
+        
+        tableView.anchr(
+            top: headView.bottomAnchor,
+            left: view.safeAreaLayoutGuide.leftAnchor,
+            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+            right: view.safeAreaLayoutGuide.rightAnchor,
+            width: self.view.bounds.width
+        )
     }
-    
     
 }

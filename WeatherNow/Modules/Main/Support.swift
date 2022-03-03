@@ -18,10 +18,10 @@ extension UILabel {
     func addTrailing(image: UIImage, text:String) {
         let attachment = NSTextAttachment()
         attachment.image = image
-
+        
         let attachmentString = NSAttributedString(attachment: attachment)
         let string = NSMutableAttributedString(string: text, attributes: [:])
-
+        
         string.append(attachmentString)
         self.attributedText = string
     }
@@ -29,7 +29,7 @@ extension UILabel {
     func addLeading(image: UIImage, text:String) {
         let attachment = NSTextAttachment()
         attachment.image = image
-
+        
         let attachmentString = NSAttributedString(attachment: attachment)
         let mutableAttributedString = NSMutableAttributedString()
         mutableAttributedString.append(attachmentString)
@@ -42,13 +42,13 @@ extension UILabel {
 
 
 extension UIImage {
-  func resized(to newSize: CGSize) -> UIImage? {
-    UIGraphicsBeginImageContextWithOptions(newSize, false, 0)
-    defer { UIGraphicsEndImageContext() }
-
-    draw(in: CGRect(origin: .zero, size: newSize))
-    return UIGraphicsGetImageFromCurrentImageContext()
-  }
+    func resized(to newSize: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0)
+        defer { UIGraphicsEndImageContext() }
+        
+        draw(in: CGRect(origin: .zero, size: newSize))
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
 }
 
 
@@ -64,37 +64,48 @@ extension UIViewController {
 
 extension UIView {
     
-    func anchr(top: NSLayoutYAxisAnchor? = nil,
-               left: NSLayoutXAxisAnchor? = nil,
-               bottom: NSLayoutYAxisAnchor? = nil,
-               right: NSLayoutXAxisAnchor? = nil,
-               paddingTop: CGFloat = 0,
-               paddingLeft: CGFloat = 0,
-               paddingBottom: CGFloat = 0,
-               paddingRight: CGFloat = 0,
-               width: CGFloat? = nil,
-               height: CGFloat? = nil) {
-        
+    func anchr(
+        top: NSLayoutYAxisAnchor? = nil,
+        left: NSLayoutXAxisAnchor? = nil,
+        bottom: NSLayoutYAxisAnchor? = nil,
+        right: NSLayoutXAxisAnchor? = nil,
+        paddingTop: CGFloat = 0,
+        paddingLeft: CGFloat = 0,
+        paddingBottom: CGFloat = 0,
+        paddingRight: CGFloat = 0,
+        width: CGFloat? = nil,
+        height: CGFloat? = nil) {
+            
+            translatesAutoresizingMaskIntoConstraints = false
+            
+            if let top = top {
+                topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
+            }
+            if let left = left {
+                leftAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
+            }
+            if let bottom = bottom {
+                bottomAnchor.constraint(equalTo: bottom, constant: -paddingBottom).isActive = true
+            }
+            if let right = right {
+                rightAnchor.constraint(equalTo: right, constant: -paddingRight).isActive = true
+            }
+            if let width = width {
+                widthAnchor.constraint(equalToConstant: width).isActive = true
+            }
+            if let height = height {
+                heightAnchor.constraint(equalToConstant: height).isActive = true
+            }
+        }
+    
+    func setSizeHeightLessOrEqual(height: CGFloat) {
         translatesAutoresizingMaskIntoConstraints = false
-        
-        if let top = top {
-            topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
-        }
-        if let left = left {
-            leftAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
-        }
-        if let bottom = bottom {
-            bottomAnchor.constraint(equalTo: bottom, constant: -paddingBottom).isActive = true
-        }
-        if let right = right {
-            rightAnchor.constraint(equalTo: right, constant: -paddingRight).isActive = true
-        }
-        if let width = width {
-            widthAnchor.constraint(equalToConstant: width).isActive = true
-        }
-        if let height = height {
-            heightAnchor.constraint(equalToConstant: height).isActive = true
-        }
+        heightAnchor.constraint(lessThanOrEqualToConstant: height).isActive = true
+    }
+    
+    func setSizeGreaterThanOrEqualToConstant(height: CGFloat) {
+        translatesAutoresizingMaskIntoConstraints = false
+        heightAnchor.constraint(greaterThanOrEqualToConstant: height).isActive = true
     }
     
     func setSize(width: CGFloat, height: CGFloat) {

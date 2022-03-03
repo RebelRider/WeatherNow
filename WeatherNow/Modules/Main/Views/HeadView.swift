@@ -8,6 +8,9 @@ var mustBeExpanded = true {
 
 
 class HeadView: UIView {
+    
+    //MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         configureHeadView()    }
@@ -16,9 +19,9 @@ class HeadView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - head container elements
-
-    let cityLabel: UILabelWithPadding = {
+    //MARK: - Head container elements
+    
+    private let cityLabel: UILabelWithPadding = {
         let lblc = UILabelWithPadding()
         lblc.text = "New York   hjgf"
         lblc.font = lblc.font.withSize(28)
@@ -65,9 +68,9 @@ class HeadView: UIView {
         view.addSubview(imgView)
         return view
     }()
-    
-    
+        
     //MARK: - Wind Pressure Humidity Container
+    
     let windPressureHumidityContainer: UIStackView = {
         let wind = UILabel()
         let pressure = UILabel()
@@ -80,7 +83,7 @@ class HeadView: UIView {
         wind.font = wind.font.withSize(12)
         pressure.font = wind.font.withSize(12)
         humid.font = wind.font.withSize(12)
-                
+        
         let stackV1 = UIStackView(arrangedSubviews: [wind, pressure, humid])
         stackV1.axis = .vertical
         stackV1.distribution = .fillEqually
@@ -91,15 +94,16 @@ class HeadView: UIView {
     }()
     
     //MARK: - Days Forecast Container
+    
     let daysForecastContainer: UIScrollView = {
         let scrollView = UIScrollView()
-               
+        
         let aa = UILabel()
         let bb = UILabel()
         let cc = UILabel()
         let dd = UILabel()
         let ee = UILabel()
-                
+        
         aa.addLeading(image: UIImage(systemName: "car") ?? UIImage(), text: "Maondaasada")
         bb.addLeading(image: UIImage(systemName: "bus") ?? UIImage(), text: "wednes")
         cc.addLeading(image: UIImage(systemName: "humidity") ?? UIImage(), text: "sunDdyaaaaa")
@@ -112,19 +116,19 @@ class HeadView: UIView {
         stackDaysForecast.distribution = .fillProportionally
         stackDaysForecast.spacing = 5
         
-        
         scrollView.addSubview(stackDaysForecast)
         
-        stackDaysForecast.anchr(top: scrollView.topAnchor,
-                                left: scrollView.leftAnchor,
-                                bottom: scrollView.bottomAnchor,
-                                right: scrollView.rightAnchor,
-                                paddingTop: 1,
-                                paddingLeft: 8,
-                                paddingBottom: 1,
-                                paddingRight: 1)
+        stackDaysForecast.anchr(
+            top: scrollView.topAnchor,
+            left: scrollView.leftAnchor,
+            bottom: scrollView.bottomAnchor,
+            right: scrollView.rightAnchor,
+            paddingTop: 1,
+            paddingLeft: 8,
+            paddingBottom: 1,
+            paddingRight: 1
+        )
         
-       
         scrollView.showsHorizontalScrollIndicator = true
         scrollView.backgroundColor = .systemBackground
         
@@ -134,62 +138,78 @@ class HeadView: UIView {
     
     //MARK: - configureHeadView func
     func configureHeadView() {
-            print("configuring HeadView")
-            
-            let stackH1 = UIStackView(arrangedSubviews: [cityLabel, locationMenuButton])
-            stackH1.axis = .horizontal
-            stackH1.distribution = .fillProportionally
-            stackH1.spacing = 11
-            stackH1.backgroundColor = .systemBackground
-            
-                    let stackV1 = UIStackView(arrangedSubviews: [temperatureLabel, feelsLikeText])
-                    stackV1.axis = .vertical
-                    stackV1.distribution = .fillProportionally
-                    stackV1.spacing = 11
-                    stackV1.backgroundColor = .systemBackground
+        print("configuring HeadView")
         
-            let stackH2 = UIStackView(arrangedSubviews: [stackV1, cloudyImageContainer])
-            stackH2.axis = .horizontal
-            stackH2.distribution = .fillEqually
-            stackH2.spacing = 6
-            stackH2.backgroundColor = .systemBackground
+        let stackH1 = UIStackView(arrangedSubviews: [cityLabel, locationMenuButton])
+        stackH1.axis = .horizontal
+        stackH1.distribution = .fillProportionally
+        stackH1.spacing = 11
+        stackH1.backgroundColor = .systemBackground
         
-            let stackH3 = UIStackView(arrangedSubviews: [windPressureHumidityContainer, daysForecastContainer])
-            stackH3.axis = .horizontal
-            stackH3.distribution = .fill//????????
-            stackH3.spacing = 6
-            stackH3.backgroundColor = .systemBackground
-               
-            addSubview(stackH1)
-            addSubview(stackH2)
-            addSubview(stackH3)
-            
-            stackH1.anchr(top: safeAreaLayoutGuide.topAnchor,
-                          left: safeAreaLayoutGuide.leftAnchor,
-                          right: safeAreaLayoutGuide.rightAnchor,
-                          paddingTop: 19,
-                          paddingBottom: 2)
-            stackH2.anchr(top: stackH1.bottomAnchor,
-                          left: safeAreaLayoutGuide.leftAnchor,
-                          right: safeAreaLayoutGuide.rightAnchor,
-                          paddingTop: 3,
-                          paddingLeft: 7,
-                          paddingBottom: 27,
-                          paddingRight: 3)
-            stackH3.anchr(top: stackH2.bottomAnchor,
-                          left: safeAreaLayoutGuide.leftAnchor,
-                          right: safeAreaLayoutGuide.rightAnchor,
-                          paddingTop: 19,
-                          paddingLeft: 11,
-                          paddingBottom: 3,
-                          paddingRight: 3)
+        let stackV1 = UIStackView(arrangedSubviews: [temperatureLabel, feelsLikeText])
+        stackV1.axis = .vertical
+        stackV1.distribution = .fillProportionally
+        stackV1.spacing = 11
+        stackV1.backgroundColor = .systemBackground
+        
+        let stackH2 = UIStackView(arrangedSubviews: [stackV1, cloudyImageContainer])
+        stackH2.axis = .horizontal
+        stackH2.distribution = .fillEqually
+        stackH2.spacing = 6
+        stackH2.backgroundColor = .systemBackground
+        
+        let stackH3 = UIStackView(arrangedSubviews: [windPressureHumidityContainer, daysForecastContainer])
+        stackH3.axis = .horizontal
+        stackH3.distribution = .fill//????????
+        stackH3.spacing = 6
+        stackH3.backgroundColor = .systemBackground
+        
+        addSubview(stackH1)
+        addSubview(stackH2)
+        addSubview(stackH3)
+        
+        stackH1.anchr(
+            top: safeAreaLayoutGuide.topAnchor,
+                      left: safeAreaLayoutGuide.leftAnchor,
+                      right: safeAreaLayoutGuide.rightAnchor,
+                      paddingTop: 19,
+                      paddingBottom: 2
+        )
+        stackH2.anchr(
+            top: stackH1.bottomAnchor,
+                      left: safeAreaLayoutGuide.leftAnchor,
+                      right: safeAreaLayoutGuide.rightAnchor,
+                      paddingTop: 3,
+                      paddingLeft: 7,
+                      paddingBottom: 27,
+                      paddingRight: 3
+        )
+        stackH3.anchr(
+            top: stackH2.bottomAnchor,
+                      left: safeAreaLayoutGuide.leftAnchor,
+                      right: safeAreaLayoutGuide.rightAnchor,
+                      paddingTop: 19,
+                      paddingLeft: 11,
+                      paddingBottom: 3,
+                      paddingRight: 3
+        )
     }
     
+    
+    func hideShow(){
+        
+    }
+    
+//    func setModel
+    
     //MARK: - selectors
+    
     @objc func showLocationMenuController() {
         print("DEBUG: show Location Menu Controller")
         let contrller = LocationInputController()
         //navigationController?.pushViewController(contrller, animated: true)
         mustBeExpanded.toggle()
-    }    
+    }
+    
+    
 }

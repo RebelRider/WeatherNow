@@ -38,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UIDevice.current.orientation.isLandscape {
             print("Landscape")
             mustBeExpanded = false
+            
         }
 
         if UIDevice.current.orientation.isPortrait {

@@ -128,8 +128,8 @@
 			children = (
 				417B090227CB65B4004524EC /* MainViewController.swift */,
 				41DE51E327CE269C00FB23C3 /* HeadView.swift */,
-				41B2AE7C27CCB8D40063FE56 /* TableItemView.swift */,
 				410DD03B27CFFC8F006D99E3 /* DayView.swift */,
+				41B2AE7C27CCB8D40063FE56 /* TableItemView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
