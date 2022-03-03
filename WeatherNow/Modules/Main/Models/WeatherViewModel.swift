@@ -26,3 +26,5 @@ enum CloudyIcon: Int, CaseIterable {
         }
     }
 }
+
+var days = ["Monday"]

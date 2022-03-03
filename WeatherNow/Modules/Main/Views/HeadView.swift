@@ -1,6 +1,10 @@
 import UIKit
 
-var mustBeExpanded = true
+var mustBeExpanded = true {
+    didSet {
+        //
+    }
+}
 
 
 class HeadView: UIView {
@@ -186,5 +190,6 @@ class HeadView: UIView {
         print("DEBUG: show Location Menu Controller")
         let contrller = LocationInputController()
         //navigationController?.pushViewController(contrller, animated: true)
+        mustBeExpanded.toggle()
     }    
 }

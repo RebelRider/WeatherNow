@@ -88,6 +88,8 @@ private extension MainViewController {
             headView.windPressureHumidityContainer.isHidden = true
             headView.daysForecastContainer.isHidden = true
         }
+        
+        tableView.anchr(top:headView.bottomAnchor)
     }
     
     func configureUI() {
@@ -101,6 +103,7 @@ private extension MainViewController {
                                  y: headView.bounds.maxY,
                                  width: self.view.bounds.width,
                                  height: self.view.bounds.height)
+        tableView.anchr(top:headView.bottomAnchor)
     }
     
     
