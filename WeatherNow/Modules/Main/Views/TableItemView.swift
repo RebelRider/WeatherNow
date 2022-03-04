@@ -17,7 +17,6 @@ class TableItemView: UITableViewCell {
     override init(style: TableItemView.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-
 //        let viewDict = [
 //            "day" : fyfftyu,
 //            "image" : fyfftyu,

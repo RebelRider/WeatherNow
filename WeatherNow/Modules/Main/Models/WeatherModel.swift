@@ -14,8 +14,7 @@ struct WeatherDetail: Codable, Identifiable {
     let sys: Sys?
     let id: Int?
     let name: String?
-    let cod: Int?
-    
+    let cod: Int?    
     static var placeholder: Self {
         return WeatherDetail(coord: nil, weather: nil, base: nil, main: nil,
                            visibility: nil, wind: nil, clouds: nil, dt: nil,

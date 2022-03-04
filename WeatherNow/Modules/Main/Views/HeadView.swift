@@ -9,7 +9,7 @@ var mustBeExpanded = true {
 
 class HeadView: UIView {
     
-    //MARK: - Init
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
@@ -19,7 +19,7 @@ class HeadView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Head container elements
+    // MARK: - Head container elements
     
     private let cityLabel: UILabelWithPadding = {
         let lblc = UILabelWithPadding()
@@ -39,7 +39,6 @@ class HeadView: UIView {
                             .withTintColor(.green, renderingMode: .alwaysOriginal)
                             .resized(to: CGSize(width: 25, height: 25)), for: UIControl.State.highlighted)
         button.addTarget(self, action: #selector(showLocationMenuController), for: .touchUpInside)
-        
         return button
     }()
     
@@ -195,7 +194,6 @@ class HeadView: UIView {
         )
     }
     
-    
     func hideShow(){
         
     }
@@ -210,6 +208,5 @@ class HeadView: UIView {
         //navigationController?.pushViewController(contrller, animated: true)
         mustBeExpanded.toggle()
     }
-    
     
 }
