@@ -9,13 +9,10 @@ import UIKit
 
 class MainViewController: UIViewController {    
     var weatherManager = WeatherAPI()
-    
     private let headView = HeadView()
-    
     private var hourText = "Now"
     private var cloudyImage = "sun"
     private var temperatureText = "+25"
-    
     // MARK: - view lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +22,8 @@ class MainViewController: UIViewController {
     }
     override func viewDidLayoutSubviews() {
         reconfigureUI()
-    }    
+    }
     // MARK: - lower table
-    var days =     ["Monday", "Tuesday", "Friday", "Sunday", "Monday", "Tuesday", "Friday", "Sunday"]
-    
     private let reuseIdentifier = "cell"
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -62,6 +57,10 @@ extension MainViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         print("DEBUG: deselect row")
     }
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        mustBeExpanded = false
+        reconfigureUI()
+    }
 }
 
 // MARK: - Private
@@ -69,7 +68,9 @@ extension MainViewController: UITableViewDelegate {
 private extension MainViewController {
     // MARK: - View configuration
     func reconfigureUI() {
+                
         print("reconfiguring UI, isExpanded \(mustBeExpanded)")
+        
         if mustBeExpanded {
             headView.windPressureHumidityContainer.isHidden = false
             headView.daysForecastContainer.isHidden = false
@@ -77,17 +78,18 @@ private extension MainViewController {
             headView.windPressureHumidityContainer.isHidden = true
             headView.daysForecastContainer.isHidden = true
         }
-        view.reloadInputViews()
         headView.anchr(
             top: view.safeAreaLayoutGuide.topAnchor,
             left: view.safeAreaLayoutGuide.leftAnchor,
-            bottom: view.bottomAnchor,
+            bottom: tableView.topAnchor,
             right: view.safeAreaLayoutGuide.rightAnchor,
             paddingTop: 2,
             paddingLeft: 0,
-            paddingBottom: (view.frame.size.height / 3 * 2 ),
-            paddingRight: 0
+            paddingBottom: 0,
+            paddingRight: 0,
+            height: headView.intrinsicContentSize.height
         )
+        headView.backgroundColor = .red
         tableView.anchr(
             top: headView.bottomAnchor,
             left: view.safeAreaLayoutGuide.leftAnchor,
@@ -96,11 +98,10 @@ private extension MainViewController {
             paddingTop: 2,
             paddingLeft: 0,
             paddingBottom: 0,
-            paddingRight: 0
+            paddingRight: 0,
+            height: tableView.intrinsicContentSize.height
         )
-        let test = weatherManager.fetchWeather(for: "London")
-        print("================")
-        print(test)
+        tableView.setSizeGreaterThanOrEqualToConstant(height: (view.frame.size.height / 3 * 2) - 33)
 }
     func configureUI() {
         view.addSubview(headView)
@@ -108,19 +109,21 @@ private extension MainViewController {
         headView.anchr(
             top: view.safeAreaLayoutGuide.topAnchor,
             left: view.safeAreaLayoutGuide.leftAnchor,
-            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+            bottom: tableView.topAnchor,
             right: view.safeAreaLayoutGuide.rightAnchor,
             paddingTop: 2,
             paddingLeft: 0,
-            paddingBottom: 0,
-            paddingRight: 0
+            paddingBottom: 20,
+            paddingRight: 0,
+            height: headView.intrinsicContentSize.height
         )
         tableView.anchr(
             top: headView.bottomAnchor,
             left: view.safeAreaLayoutGuide.leftAnchor,
             bottom: view.safeAreaLayoutGuide.bottomAnchor,
             right: view.safeAreaLayoutGuide.rightAnchor,
-            width: self.view.bounds.width
+            width: self.view.bounds.width,
+            height: tableView.intrinsicContentSize.height
         )
     }
 }

@@ -4,27 +4,18 @@
 //
 //  Created by Kirill Smirnov on 02.03.2022.
 //
+import UIKit
 
-import Foundation
+var days = ["Monday", "Sunday", "Tuesday", "Friday"]
 
-enum CloudyIcon: Int, CaseIterable {
-    case sun
-    case cloudy
-    case rain
-    case snow
+var city = "New York"
+
+class WeatherViewModel {
+//    @Published var currentWeather = Weather()
+//    @Published var daysWeather = DailyWeather()
     
-    var icon: String {
-        switch self {
-        case .sun:
-            return "sun.max"
-        case .cloudy:
-            return "cloud"
-        case .rain:
-            return "cloud.rain"
-        case .snow:
-            return "cloud.snow"
-        }
+    init() {
     }
+    
+        
 }
-
-var days = ["Monday"]
