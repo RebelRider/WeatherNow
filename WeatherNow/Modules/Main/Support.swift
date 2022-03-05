@@ -86,6 +86,10 @@ extension UIView {
     }
     func setSizeGreaterThanOrEqualToConstant(height: CGFloat) {
         translatesAutoresizingMaskIntoConstraints = false
+        heightAnchor.constraint(greaterThanOrEqualToConstant: height).isActive = true
+    }
+    func setSizeHeight(height: CGFloat) {
+        translatesAutoresizingMaskIntoConstraints = false
         heightAnchor.constraint(equalToConstant: height).isActive = true
     }
     func setSize(width: CGFloat, height: CGFloat) {

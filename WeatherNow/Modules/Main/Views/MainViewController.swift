@@ -56,6 +56,8 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         print("DEBUG: deselect row")
+        mustBeExpanded = true
+        reconfigureUI()
     }
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         mustBeExpanded = false
@@ -67,59 +69,62 @@ extension MainViewController: UITableViewDelegate {
 
 private extension MainViewController {
     // MARK: - View configuration
-    func reconfigureUI() {
-                
-        print("reconfiguring UI, isExpanded \(mustBeExpanded)")
-        
-        if mustBeExpanded {
-            headView.windPressureHumidityContainer.isHidden = false
-            headView.daysForecastContainer.isHidden = false
-        } else {
-            headView.windPressureHumidityContainer.isHidden = true
-            headView.daysForecastContainer.isHidden = true
-        }
-        headView.anchr(
-            top: view.safeAreaLayoutGuide.topAnchor,
-            left: view.safeAreaLayoutGuide.leftAnchor,
-            bottom: tableView.topAnchor,
-            right: view.safeAreaLayoutGuide.rightAnchor,
-            paddingTop: 2,
-            paddingLeft: 0,
-            paddingBottom: 0,
-            paddingRight: 0
-        )
-        headView.backgroundColor = .red
-        tableView.anchr(
-            top: headView.bottomAnchor,
-            left: view.safeAreaLayoutGuide.leftAnchor,
-            bottom: view.safeAreaLayoutGuide.bottomAnchor,
-            right: view.safeAreaLayoutGuide.rightAnchor,
-            paddingTop: 2,
-            paddingLeft: 0,
-            paddingBottom: 0,
-            paddingRight: 0
-        )
-        headView.setSizeGreaterThanOrEqualToConstant(height: (view.frame.size.height / 3 * 2) - 22)
-}
     func configureUI() {
         view.addSubview(headView)
         view.addSubview(tableView)
-//        headView.anchr(
-//            top: view.safeAreaLayoutGuide.topAnchor,
-//            left: view.safeAreaLayoutGuide.leftAnchor,
-//            bottom: tableView.topAnchor,
-//            right: view.safeAreaLayoutGuide.rightAnchor,
-//            paddingTop: 2,
-//            paddingLeft: 0,
-//            paddingBottom: 20,
-//            paddingRight: 0
-//        )
-//        tableView.anchr(
-//            top: headView.bottomAnchor,
-//            left: view.safeAreaLayoutGuide.leftAnchor,
-//            bottom: view.safeAreaLayoutGuide.bottomAnchor,
-//            right: view.safeAreaLayoutGuide.rightAnchor,
-//            width: self.view.bounds.width
-//        )
+        
+        let mainStack = UIStackView(arrangedSubviews: [headView,
+                                                       tableView])
+        mainStack.axis = .vertical
+        mainStack.distribution = .fill//????????
+        mainStack.alignment = .top
+        mainStack.spacing = 6
+        
+        headView.anchr(
+            top: mainStack.safeAreaLayoutGuide.topAnchor,
+            left: mainStack.safeAreaLayoutGuide.leftAnchor,
+            bottom: tableView.topAnchor,
+            right: mainStack.safeAreaLayoutGuide.rightAnchor,
+            paddingTop: 2,
+            paddingLeft: 0,
+            paddingBottom: 0,
+            paddingRight: 0
+        )
+        tableView.anchr(
+            top: headView.bottomAnchor,
+            left: mainStack.safeAreaLayoutGuide.leftAnchor,
+            bottom: mainStack.safeAreaLayoutGuide.bottomAnchor,
+            right: mainStack.safeAreaLayoutGuide.rightAnchor,
+            paddingTop: 2,
+            paddingLeft: 0,
+            paddingBottom: 0,
+            paddingRight: 0
+        )
+        
+        view.addSubview(mainStack)
+        mainStack.anchr(
+            top: view.safeAreaLayoutGuide.topAnchor,
+            left: view.safeAreaLayoutGuide.leftAnchor,
+            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+            right: view.safeAreaLayoutGuide.rightAnchor,
+            paddingTop: 1,
+            paddingLeft: 1,
+            paddingBottom: 1,
+            paddingRight: 1
+        )
+    }
+    
+    func reconfigureUI() {
+        print("reconfiguring UI, isExpanded \(mustBeExpanded)")
+        // configureUI()
+        if UIDevice.current.orientation == .portrait || mustBeExpanded {
+            headView.windPressureHumidityContainer.isHidden = false
+            headView.daysForecastContainer.isHidden = false
+            headView.setSizeHeightLessOrEqual(height: view.frame.size.height * 0.4)
+        } else {
+            headView.windPressureHumidityContainer.isHidden = true
+            headView.daysForecastContainer.isHidden = true
+            headView.setSizeHeightLessOrEqual(height: 133)
+        }
     }
 }

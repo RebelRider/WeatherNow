@@ -6,7 +6,6 @@ var mustBeExpanded = true {
     }
 }
 
-
 class HeadView: UIView {
     // MARK: - Init
     override init(frame: CGRect) {
@@ -19,8 +18,8 @@ class HeadView: UIView {
     // MARK: - Head container elements
     private let cityLabel: UILabelWithPadding = {
         let lblc = UILabelWithPadding()
-        lblc.text = "New York   hjgf"
-        lblc.font = lblc.font.withSize(28)
+        lblc.text = "New York"
+        lblc.font = lblc.font.withSize(34)
         lblc.addShadow()
         lblc.backgroundColor = .systemBackground
         return lblc
@@ -38,14 +37,14 @@ class HeadView: UIView {
     }()
     let temperatureLabel: UILabelWithPadding = {
         let lblt = UILabelWithPadding()
-        lblt.text = "+25 C"
-        lblt.font = lblt.font.withSize(45)
+        lblt.text = "+25"
+        lblt.font = lblt.font.withSize(66)
         return lblt
     }()
     let feelsLikeText: UILabel = {
         let flt = UILabel()
         flt.text = "Cloudy, feels like +16"
-        flt.font = flt.font.withSize(14)
+        flt.font = flt.font.withSize(12)
         flt.addShadow()
         flt.backgroundColor = .systemBackground
         return flt
@@ -64,12 +63,19 @@ class HeadView: UIView {
         let wind = UILabel()
         let pressure = UILabel()
         let humid = UILabel()
+        
         wind.addLeading(image: UIImage(systemName: "wind") ?? UIImage(), text: "10 m/s, NW")
         pressure.addLeading(image: UIImage(systemName: "timer") ?? UIImage(), text: "701 mPa")
         humid.addLeading(image: UIImage(systemName: "humidity") ?? UIImage(), text: "77%")
+        
+        wind.font = UIFont(name: "SFProText-Regular", size: 12)
+        pressure.font = UIFont(name: "SFProText-Regular", size: 12)
+        humid.font = UIFont(name: "SFProText-Regular", size: 12)
+        
         wind.font = wind.font.withSize(12)
         pressure.font = wind.font.withSize(12)
         humid.font = wind.font.withSize(12)
+        
         let stackV1 = UIStackView(arrangedSubviews: [wind, pressure, humid])
         stackV1.axis = .vertical
         stackV1.distribution = .fillEqually
@@ -113,6 +119,8 @@ class HeadView: UIView {
     
     // MARK: - configureHeadView func
     func configureHeadView() {
+        
+        
         print("configuring HeadView")
         let stackH1 = UIStackView(arrangedSubviews: [cityLabel, locationMenuButton])
         stackH1.axis = .horizontal
@@ -125,12 +133,14 @@ class HeadView: UIView {
         stackV1.distribution = .fillProportionally
         stackV1.spacing = 11
         stackV1.backgroundColor = .systemBackground
+        stackH1.alignment = .leading
         
         let stackH2 = UIStackView(arrangedSubviews: [stackV1, cloudyImageContainer])
         stackH2.axis = .horizontal
         stackH2.distribution = .fillEqually
         stackH2.spacing = 6
         stackH2.backgroundColor = .systemBackground
+        //stackH2.alignment = .trailing
         
         let stackH3 = UIStackView(arrangedSubviews: [windPressureHumidityContainer, daysForecastContainer])
         stackH3.axis = .horizontal
@@ -167,6 +177,11 @@ class HeadView: UIView {
                       paddingBottom: 3,
                       paddingRight: 3
         )
+        
+//        cityLabel.font = UIFont(name: "SFProDisplay-Regular", size: 34)
+//        temperatureLabel.font = UIFont(name: "SFProDisplay-Thin", size: 80)
+//        feelsLikeText.font = UIFont(name: "SFProText-Regular", size: 12)
+        
     }
     
     func hideShow(){
