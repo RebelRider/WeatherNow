@@ -86,8 +86,7 @@ private extension MainViewController {
             paddingTop: 2,
             paddingLeft: 0,
             paddingBottom: 0,
-            paddingRight: 0,
-            height: headView.intrinsicContentSize.height
+            paddingRight: 0
         )
         headView.backgroundColor = .red
         tableView.anchr(
@@ -98,32 +97,29 @@ private extension MainViewController {
             paddingTop: 2,
             paddingLeft: 0,
             paddingBottom: 0,
-            paddingRight: 0,
-            height: tableView.intrinsicContentSize.height
+            paddingRight: 0
         )
-        tableView.setSizeGreaterThanOrEqualToConstant(height: (view.frame.size.height / 3 * 2) - 33)
+        headView.setSizeGreaterThanOrEqualToConstant(height: (view.frame.size.height / 3 * 2) - 22)
 }
     func configureUI() {
         view.addSubview(headView)
         view.addSubview(tableView)
-        headView.anchr(
-            top: view.safeAreaLayoutGuide.topAnchor,
-            left: view.safeAreaLayoutGuide.leftAnchor,
-            bottom: tableView.topAnchor,
-            right: view.safeAreaLayoutGuide.rightAnchor,
-            paddingTop: 2,
-            paddingLeft: 0,
-            paddingBottom: 20,
-            paddingRight: 0,
-            height: headView.intrinsicContentSize.height
-        )
-        tableView.anchr(
-            top: headView.bottomAnchor,
-            left: view.safeAreaLayoutGuide.leftAnchor,
-            bottom: view.safeAreaLayoutGuide.bottomAnchor,
-            right: view.safeAreaLayoutGuide.rightAnchor,
-            width: self.view.bounds.width,
-            height: tableView.intrinsicContentSize.height
-        )
+//        headView.anchr(
+//            top: view.safeAreaLayoutGuide.topAnchor,
+//            left: view.safeAreaLayoutGuide.leftAnchor,
+//            bottom: tableView.topAnchor,
+//            right: view.safeAreaLayoutGuide.rightAnchor,
+//            paddingTop: 2,
+//            paddingLeft: 0,
+//            paddingBottom: 20,
+//            paddingRight: 0
+//        )
+//        tableView.anchr(
+//            top: headView.bottomAnchor,
+//            left: view.safeAreaLayoutGuide.leftAnchor,
+//            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+//            right: view.safeAreaLayoutGuide.rightAnchor,
+//            width: self.view.bounds.width
+//        )
     }
 }
