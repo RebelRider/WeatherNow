@@ -37,6 +37,7 @@ class MainViewController: UIViewController {
     }()
 }
 
+let days = ["aaa", "asdasd", "asdasda", "zdfsgdg", "sdfbhdssdb", "dgn"]
 // MARK: - UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -117,14 +118,17 @@ private extension MainViewController {
     func reconfigureUI() {
         print("reconfiguring UI, isExpanded \(mustBeExpanded)")
         // configureUI()
-        if UIDevice.current.orientation == .portrait || mustBeExpanded {
-            headView.windPressureHumidityContainer.isHidden = false
-            headView.daysForecastContainer.isHidden = false
-            headView.setSizeHeightLessOrEqual(height: view.frame.size.height * 0.4)
-        } else {
-            headView.windPressureHumidityContainer.isHidden = true
-            headView.daysForecastContainer.isHidden = true
-            headView.setSizeHeightLessOrEqual(height: 133)
+        UIView.animate(withDuration: 0.3) {
+            if UIDevice.current.orientation == .portrait || mustBeExpanded {
+                self.headView.windPressureHumidityContainer.isHidden = false
+                self.headView.daysForecastContainer.isHidden = false
+                self.headView.setSizeHeightLessOrEqual(height: self.view.frame.size.height * 0.4)
+            } else {
+                self.headView.windPressureHumidityContainer.isHidden = true
+                self.headView.daysForecastContainer.isHidden = true
+                self.headView.setSizeHeightLessOrEqual(height: 133)
+            }
         }
+        
     }
 }

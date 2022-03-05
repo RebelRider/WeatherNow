@@ -53,9 +53,10 @@ class HeadView: UIView {
         var view = UIImageView()
         let img = UIImage(systemName: "cloud.drizzle.fill")!
             .withTintColor(.blue, renderingMode: .alwaysOriginal)
-            .resized(to: CGSize(width: 66, height: 66))
+            .resized(to: CGSize(width: 67, height: 67))
         let imgView = UIImageView(image: img)
         view.addSubview(imgView)
+        imgView.anchr(right: view.safeAreaLayoutGuide.rightAnchor, paddingRight: 32)
         return view
     }()
     //MARK: - Wind Pressure Humidity Container
@@ -79,7 +80,7 @@ class HeadView: UIView {
         let stackV1 = UIStackView(arrangedSubviews: [wind, pressure, humid])
         stackV1.axis = .vertical
         stackV1.distribution = .fillEqually
-        stackV1.spacing = 3
+        stackV1.spacing = 8
         stackV1.backgroundColor = .systemBackground
         return stackV1
     }()
@@ -145,7 +146,7 @@ class HeadView: UIView {
         let stackH3 = UIStackView(arrangedSubviews: [windPressureHumidityContainer, daysForecastContainer])
         stackH3.axis = .horizontal
         stackH3.distribution = .fill//????????
-        stackH3.spacing = 6
+        stackH3.spacing = 14
         stackH3.backgroundColor = .systemBackground
         
         addSubview(stackH1)
