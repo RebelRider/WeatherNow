@@ -75,4 +75,36 @@ final class CityViewViewModel: ObservableObject {
     func getTempFore(temp: Double) -> String {
         return String(format: "%0.1f", temp)
     }
+    
+    private func getLocation() {
+        CLGeocoder().geocodeAddressString(city) { (placemarks, error) in
+            if let places = placemarks, let place = places.first {
+                self.getWeather(coordinates: place.location?.coordinate)
+            }
+        }
+    }
+    
+    private func getWeather(coordinates:CLLocationCoordinate2D?) {
+        if let coord = coordinates {
+            let urlString = WeatherAPI.getURLfor(lat: coord.latitude, lon: coord.longitude)
+            getWeatherInternal(city: city, for: urlString)
+        } else {
+            let urlString = WeatherAPI.getURLfor(lat: 40.7128, lon: 74.0060)
+            getWeatherInternal(city: city, for: urlString)
+        }
+    }
+    
+    private func getWeatherInternal(city: String, for urlString: String) {
+        NetworkManager<WeatherResponse>.fetch(for: URL(string: urlString)!) { (result) in
+            switch result {
+            case .success(let response):
+                DispatchQueue.main.async {
+                    self.weather = response
+                }
+            case .failure(let err):
+                print(err.localizedDescription)//????
+            }
+            
+        }
+    }
 }
