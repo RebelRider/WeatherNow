@@ -5,7 +5,7 @@ final class CityViewViewModel: ObservableObject {
     @Published var weather = WeatherResponse.empty()
     @Published var city: String = "New York" {
         didSet {
-            //get location
+            getLocation()
         }
     }
     
@@ -26,7 +26,7 @@ final class CityViewViewModel: ObservableObject {
     }()
     
     init() {
-        //
+        getLocation()
     }
     
     var date: String {
@@ -105,6 +105,18 @@ final class CityViewViewModel: ObservableObject {
                 print(err.localizedDescription)//????
             }
             
+        }
+    }
+    
+       
+    func getWeatherIcon(icon: String) -> UIImage? { // get icons!
+        switch icon {
+        case "01d":
+            return UIImage(systemName: "sun.max.fill")
+        case "01n":
+            return UIImage(systemName: "moon.fill")
+        default:
+            return UIImage(systemName: "sun")
         }
     }
 }

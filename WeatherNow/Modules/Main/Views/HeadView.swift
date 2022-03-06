@@ -37,7 +37,7 @@ class HeadView: UIView {
     }()
     let temperatureLabel: UILabelWithPadding = {
         let lblt = UILabelWithPadding()
-        lblt.text = "+25"
+        lblt.text = "+25" + "℃"
         lblt.font = lblt.font.withSize(66)
         return lblt
     }()
@@ -138,7 +138,7 @@ class HeadView: UIView {
         
         let stackH2 = UIStackView(arrangedSubviews: [stackV1, cloudyImageContainer])
         stackH2.axis = .horizontal
-        stackH2.distribution = .fillEqually
+        stackH2.distribution = .fillProportionally
         stackH2.spacing = 6
         stackH2.backgroundColor = .systemBackground
         //stackH2.alignment = .trailing
@@ -193,7 +193,7 @@ class HeadView: UIView {
     //MARK: - selectors
     @objc func showLocationMenuController() {
         print("DEBUG: show Location Menu Controller")
-        let contrller = LocationInputController()
+//        let contrller = LocationInputController()
         //navigationController?.pushViewController(contrller, animated: true)
     }    
 }
