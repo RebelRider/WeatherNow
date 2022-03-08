@@ -18,9 +18,8 @@ class HourlyCollectionViewCell: UICollectionViewCell{
     private var dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 18)
+        label.font = UIFont.systemFont(ofSize: 12) // check Figma template
         label.textAlignment = .center
-        label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         return label
     }()
     
@@ -33,9 +32,8 @@ class HourlyCollectionViewCell: UICollectionViewCell{
     private var tempLabel: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = UIFont.systemFont(ofSize: 12) // check Figma template
         label.textAlignment = .center
-        label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         return label
     }()
     
@@ -64,14 +62,8 @@ class HourlyCollectionViewCell: UICollectionViewCell{
     //MARK: - constraints
     private func makeConstraints(){
         
-        // blurEffectView constraints
-        blurEffectView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        blurEffectView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        blurEffectView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        blurEffectView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        
         // dateLabel constraints
-        dateLabel.topAnchor.constraint(equalTo: topAnchor, constant: 18).isActive = true
+        dateLabel.topAnchor.constraint(equalTo: topAnchor, constant: 37).isActive = true
         dateLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         // conditionView constraints
@@ -81,12 +73,12 @@ class HourlyCollectionViewCell: UICollectionViewCell{
         conditionView.widthAnchor.constraint(equalToConstant: 30).isActive = true
         
         // tempLabel constraints
-        tempLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18).isActive = true
+        tempLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -33).isActive = true
         tempLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
     
-    //MARK: - configure
-    func set (data: CurrentWeatherViewModel.Hourly){
+    //MARK: - set image & txt
+    func setData(data: CurrentWeatherViewModel.Hourly){
         dateLabel.text = data.dt
         conditionView.image = UIImage(named: data.icon)
         tempLabel.text = data.temp

@@ -22,8 +22,8 @@ class HourlyCollectionView: UICollectionView, UICollectionViewDataSource, UIColl
         backgroundColor = .clear
         showsHorizontalScrollIndicator = false
         showsVerticalScrollIndicator = false
-        contentInset.left = 10
-        contentInset.right = 10
+        contentInset.left = 3
+        contentInset.right = 3
         
         register(HourlyCollectionViewCell.self, forCellWithReuseIdentifier: HourlyCollectionViewCell.reuseId)
     }
@@ -42,13 +42,13 @@ class HourlyCollectionView: UICollectionView, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: HourlyCollectionViewCell.reuseId, for: indexPath) as! HourlyCollectionViewCell
         guard let cells = cells else { return cell}
-        cell.set(data: cells[indexPath.row])
+        cell.setData(data: cells[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width: CGFloat = (bounds.size.width - 50) / 4
-        let height: CGFloat = 145
+        let width: CGFloat = 44 // (bounds.size.width - 44) / 8 // check Figma template!
+        let height: CGFloat = 145 // check Figma template!
         return CGSize(width: width, height: height)
     }
     

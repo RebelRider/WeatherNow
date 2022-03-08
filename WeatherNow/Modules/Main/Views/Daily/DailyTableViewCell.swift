@@ -18,9 +18,8 @@ class DailyTableViewCell: UITableViewCell{
     private var dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 18)
+        label.font = UIFont.systemFont(ofSize: 17) // check Figma template!
         label.textAlignment = .left
-        label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         label.text = "Today"
         return label
     }()
@@ -37,17 +36,16 @@ class DailyTableViewCell: UITableViewCell{
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 20)
         label.textAlignment = .right
-        label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        label.text = "+15º"
+        label.text = "+15" + "º"
         return label
     }()
     
     private var minLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 18)
+        label.font = UIFont.systemFont(ofSize: 16) // check Figma template!
+        label.textColor = .secondaryLabel
         label.textAlignment = .right
-        label.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         label.text = "+10" + "º"
         return label
     }()
@@ -71,15 +69,15 @@ class DailyTableViewCell: UITableViewCell{
     private func makeConstraints(){
         
         //blurEffectView constraints
-        blurEffectView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        blurEffectView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        blurEffectView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        blurEffectView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+//        blurEffectView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+//        blurEffectView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+//        blurEffectView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+//        blurEffectView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
         // dateLabel constraints
         dateLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18).isActive = true
-        dateLabel.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 14).isActive = true
+        dateLabel.widthAnchor.constraint(equalToConstant: 124).isActive = true
         dateLabel.heightAnchor.constraint(equalToConstant: 18).isActive = true
         
         // conditionView constraints
@@ -90,7 +88,7 @@ class DailyTableViewCell: UITableViewCell{
         
         //minLabel constraints
         minLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        minLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -18).isActive = true
+        minLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
         minLabel.widthAnchor.constraint(equalToConstant: 45).isActive = true
         
         //maxLabel constraints

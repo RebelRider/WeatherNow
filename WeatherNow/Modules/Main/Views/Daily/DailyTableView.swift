@@ -12,7 +12,7 @@ class DailyTableView: UITableView, UITableViewDataSource, UITableViewDelegate{
     
     var cells: [CurrentWeatherViewModel.Daily]?
     
-    static let cellHeight:CGFloat = 45
+    static let cellHeight:CGFloat = 55 // check Figma template!
     
     //MARK: - init
     init() {

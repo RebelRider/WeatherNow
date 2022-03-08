@@ -13,7 +13,7 @@ protocol NetworkManagerProtocol{
 
 struct NetworkManager: NetworkManagerProtocol{
     func getWeather(coordinates: String, completion: @escaping (WeatherResponse?) -> Void) {
-    let fullUrl = "\(WeatherAPI.url)\(coordinates)"
+        let fullUrl = "\(WeatherAPI.urlEn)\(coordinates)"
         guard let url = URL(string: fullUrl) else { return }
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
