@@ -7,38 +7,29 @@
 
 import Foundation
 
-enum NetworkError: Error {
-    case invalidResponse
-    case invalidData
-    case error(err: String)
-    case decodingError(err: String)
+protocol NetworkManagerProtocol{
+    func getWeather(coordinates: String, completion: @escaping (WeatherResponse?) -> Void)
 }
 
-final class NetworkManager<T: Codable> { // we will use for any type of API calls, that conforms to Codable:)
-    static func fetch(for url: URL, completion: @escaping (Result<T, NetworkError>) -> Void) {
-        URLSession.shared.dataTask(with: url) { (data, resp, err) in
-            guard err == nil else {
-                print(String(describing: err))
-                completion(.failure(.error(err: err!.localizedDescription)))
-                return
+struct NetworkManager: NetworkManagerProtocol{
+    func getWeather(coordinates: String, completion: @escaping (WeatherResponse?) -> Void) {
+    let fullUrl = "\(WeatherAPI.url)\(coordinates)"
+        guard let url = URL(string: fullUrl) else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error received requesting data: \(error.localizedDescription)")
+                completion(nil)
             }
-            guard let httpResp = resp as? HTTPURLResponse, httpResp.statusCode == 200 else {
-                completion(.failure(.invalidResponse))
-                return
-            }
-            guard let data = data else {
-                completion(.failure(.invalidData))
-                return
-            }
-            
-            do {
-                let json = try JSONDecoder().decode(T.self, from: data)
-                completion(.success(json))
-            } catch let err {
-                completion(.failure(.decodingError(err: err.localizedDescription)))
-            }
-            
-            
-        }.resume()
+            let decoded = self.decodeJSON(type: WeatherResponse.self, from: data)
+            completion(decoded)
+        }
+        .resume()
+    }
+    
+    private func decodeJSON<T: Decodable>(type: T.Type, from: Data?) -> T?{
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        guard let data = from, let response = try? decoder.decode(type.self, from: data) else { return nil }
+        return response
     }
 }

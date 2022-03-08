@@ -35,12 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @objc func rotated() {
         if UIDevice.current.orientation.isLandscape {
             print("Landscape")
-            mustBeExpanded = false
         }
 
         if UIDevice.current.orientation.isPortrait {
             print("Portrait")
-            mustBeExpanded = true
         }
     }
 

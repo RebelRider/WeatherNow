@@ -10,6 +10,12 @@ class UILabelWithPadding: UILabel {
     }
 }
 
+extension String {
+    func capitalizingFirstLetter() -> String {
+      return prefix(1).uppercased() + self.lowercased().dropFirst()
+    }
+}
+
 extension UILabel {
     func addTrailing(image: UIImage, text:String) {
         let attachment = NSTextAttachment()

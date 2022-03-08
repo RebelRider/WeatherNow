@@ -1,134 +1,53 @@
-//
-//  MainViewController.swift
-//  WeatherNow
-//
-//  Created by Kirill Smirnov on 27.02.2022.
-//
 
 import UIKit
+import CoreLocation
 
-class MainViewController: UIViewController {    
-    var weatherManager = WeatherAPI()
-    private let headView = HeadView()
-    private var hourText = "Now"
-    private var cloudyImage = "sun"
-    private var temperatureText = "+25"
-    // MARK: - view lifecycle
+protocol WeatherDisplayLogic: AnyObject {
+    func displayData(viewModel: WeatherEnum.Model.ViewModel.ViewModelData)
+}
+
+class MainViewController: UIViewController, WeatherDisplayLogic {
+    
+    var interactor: DataUpdater?
+    let weatherView = WeatherView()
+    
+    // MARK: - Setup
+    
+    private func ConfigureUI() {
+        let viewController        = self
+        let interactor            = WeatherInteractor()
+        let presenter             = WeatherPresenter()
+        viewController.interactor = interactor
+        interactor.presenter      = presenter
+        presenter.viewController  = viewController
+    }
+
+    // MARK: - View lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        //view.addSubview(headView)
-        configureUI()
-    }
-    override func viewDidLayoutSubviews() {
-        reconfigureUI()
-    }
-    // MARK: - lower table
-    private let reuseIdentifier = "cell"
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
-        tableView.isScrollEnabled = true
-        tableView.separatorStyle = .singleLine
-        tableView.backgroundColor = .systemBackground
-        return tableView
-    }()
-}
-
-let days = ["aaa", "asdasd", "asdasda", "zdfsgdg", "sdfbhdssdb", "dgn"]
-// MARK: - UITableViewDataSource
-extension MainViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("numberOfRowsInSection")
-        return days.count
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-        cell.textLabel?.text = days[indexPath.row]
-        //        cell.setModel
-        return cell
-    }
-}
-
-// MARK: - UITableViewDelegate
-extension MainViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        print("DEBUG: deselect row")
-        mustBeExpanded = true
-        reconfigureUI()
-    }
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        mustBeExpanded = false
-        reconfigureUI()
-    }
-}
-
-// MARK: - Private
-
-private extension MainViewController {
-    // MARK: - View configuration
-    func configureUI() {
-        view.addSubview(headView)
-        view.addSubview(tableView)
-        
-        let mainStack = UIStackView(arrangedSubviews: [headView,
-                                                       tableView])
-        mainStack.axis = .vertical
-        mainStack.distribution = .fill//????????
-        mainStack.alignment = .top
-        mainStack.spacing = 6
-        
-        headView.anchr(
-            top: mainStack.safeAreaLayoutGuide.topAnchor,
-            left: mainStack.safeAreaLayoutGuide.leftAnchor,
-            bottom: tableView.topAnchor,
-            right: mainStack.safeAreaLayoutGuide.rightAnchor,
-            paddingTop: 2,
-            paddingLeft: 0,
-            paddingBottom: 0,
-            paddingRight: 0
-        )
-        tableView.anchr(
-            top: headView.bottomAnchor,
-            left: mainStack.safeAreaLayoutGuide.leftAnchor,
-            bottom: mainStack.safeAreaLayoutGuide.bottomAnchor,
-            right: mainStack.safeAreaLayoutGuide.rightAnchor,
-            paddingTop: 2,
-            paddingLeft: 0,
-            paddingBottom: 0,
-            paddingRight: 0
-        )
-        
-        view.addSubview(mainStack)
-        mainStack.anchr(
-            top: view.safeAreaLayoutGuide.topAnchor,
-            left: view.safeAreaLayoutGuide.leftAnchor,
-            bottom: view.safeAreaLayoutGuide.bottomAnchor,
-            right: view.safeAreaLayoutGuide.rightAnchor,
-            paddingTop: 1,
-            paddingLeft: 1,
-            paddingBottom: 1,
-            paddingRight: 1
-        )
+        ConfigureUI()
+    
+        view.addSubview(weatherView)
+        weatherView.frame = self.view.frame
     }
     
-    func reconfigureUI() {
-        print("reconfiguring UI, isExpanded \(mustBeExpanded)")
-        // configureUI()
-        UIView.animate(withDuration: 0.3) {
-            if UIDevice.current.orientation == .portrait || mustBeExpanded {
-                self.headView.windPressureHumidityContainer.isHidden = false
-                self.headView.daysForecastContainer.isHidden = false
-                self.headView.setSizeHeightLessOrEqual(height: self.view.frame.size.height * 0.4)
-            } else {
-                self.headView.windPressureHumidityContainer.isHidden = true
-                self.headView.daysForecastContainer.isHidden = true
-                self.headView.setSizeHeightLessOrEqual(height: 133)
-            }
-        }
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        interactor?.makeRequest(request: .getWeather)
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        //weatherView.contentSize = CGSize(width:self.view.bounds.width, height: 888) // make it a scrollView?
+    }
+    
+    //MARK: - displayData
+    func displayData(viewModel: WeatherEnum.Model.ViewModel.ViewModelData) {
+        switch viewModel {
+        case .displayWeather(let currentWeatherViewModel):
+            weatherView.configure(viewModel: currentWeatherViewModel)
+        }
+    }
+    
 }
