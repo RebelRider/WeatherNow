@@ -29,6 +29,10 @@ struct CurrentWeatherViewModel {
     let icon: String
     let hourlyWeather: [Hourly]
     let maxMinTemp: String
+    let feelsLike: String
+    let wind: String
+    let pressure: String
+    let humidity: String
     let dailyWeather: [Daily]
     
     struct Hourly{

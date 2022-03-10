@@ -16,6 +16,9 @@ struct WeatherResponse: Decodable{
 
 struct Current: Decodable {
     let dt, temp: Double
+//    let wind: Int
+//    let pressure: Int
+//    let humidity: Int
     let weather: [WeatherInfo]
 }
 

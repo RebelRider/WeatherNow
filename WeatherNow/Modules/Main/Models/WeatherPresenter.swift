@@ -36,7 +36,6 @@ class WeatherPresenter: WeatherPresentationLogic {
     func presentData(response: WeatherEnum.Model.Response.ResponseType) {
         
         switch response {
-        
         case .presentWeather(let weather, let locality):
             var hourlyCells: [CurrentWeatherViewModel.Hourly] = []
             var dailyCells: [CurrentWeatherViewModel.Daily] = []
@@ -45,22 +44,22 @@ class WeatherPresenter: WeatherPresentationLogic {
             weather.hourly.forEach { hourly in
                 hourlyCells.append(CurrentWeatherViewModel.Hourly.init(dt: formattedDate(dateFormat: "HH",
                                                                                          date: hourly.dt),
-                                                                       temp: setSign(temp: Int(hourly.temp)),
-                                                                       description: hourly.weather.first!.description,
-                                                                       icon: hourly.weather.first!.icon))
+                                                                                        temp: setSign(temp: Int(hourly.temp)),
+                                                                                        description: hourly.weather.first!.description,
+                                                                                        icon: hourly.weather.first!.icon))
             }
             hourlyCells.removeLast(24)
             hourlyCells[0].dt = "Now"
             
-            //create data for daily cells
+            // creating data for daily cells
             weather.daily.forEach { daily in
                 dailyCells.append(CurrentWeatherViewModel.Daily.init(dt: formattedDate(dateFormat: "EEEE",
                                                                                        date: daily.dt),
-                                                                     minTemp: setSign(temp: Int(daily.temp.min)),
-                                                                     maxTemp: setSign(temp: Int(daily.temp.max)),
-                                                                     icon: daily.weather.first!.icon))
+                                                                                        minTemp: setSign(temp: Int(daily.temp.min)),
+                                                                                        maxTemp: setSign(temp: Int(daily.temp.max)),
+                                                                                        icon: daily.weather.first!.icon))
             }
-            dailyCells[0].dt = "Cегодня"
+            dailyCells[0].dt = "Today"
             
             // create data to minMaxLabel
             let maxMinTemp = "max.: \(dailyCells[0].maxTemp), min.: \(dailyCells[0].minTemp)"
@@ -83,8 +82,8 @@ class WeatherPresenter: WeatherPresentationLogic {
     // add the necessary symbols to the temperature
     private func setSign(temp: Int) -> String{
         var currentTemp: String = ""
-        guard temp >= 1 else { currentTemp = "\(temp)º"; return currentTemp }
-        currentTemp = "+\(temp)º"
+        guard temp >= 1 else { currentTemp = " \(temp)º"; return currentTemp }
+        currentTemp = " +\(temp)º"
         return currentTemp
     }
     
@@ -96,6 +95,10 @@ class WeatherPresenter: WeatherPresentationLogic {
                                             icon: weatherModel.current.weather.first?.icon ?? "unknown",
                                             hourlyWeather: hourlyCells,
                                             maxMinTemp: maxMinTemp,
+                                            feelsLike: setSign(temp: Int(weatherModel.current.temp)), // SET FEELS LIKE
+                                            wind: "wind txt",
+                                            pressure: "pressure txt",
+                                            humidity: "hum txt",
                                             dailyWeather: dailyCells)
     }
     

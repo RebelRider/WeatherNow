@@ -39,7 +39,7 @@ class MainViewController: UIViewController, WeatherDisplayLogic {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        //weatherView.contentSize = CGSize(width:self.view.bounds.width, height: 888) // make it a scrollView?
+        //weatherView.contentSize = CGSize(width:self.view.bounds.width, height: 888) // make it all a scrollView?
     }
     
     //MARK: - displayData
