@@ -38,7 +38,8 @@ class WeatherView: UIView { // UIScrollView?
        let button = UIButton()
         button.setImage(UIImage(systemName: "line.3.horizontal.decrease"), for: .highlighted)
         button.setImage(UIImage(systemName: "line.3.horizontal"), for: .normal)
-        button.backgroundColor = .red
+        button.tintColor = .blue
+        button.addTarget(self, action: #selector(showLocationInput), for: .touchUpInside)
         return button
     }()
     
@@ -148,12 +149,11 @@ class WeatherView: UIView { // UIScrollView?
         cityLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 11).isActive = true
         
         // locationInputButton constraints
+        locationInputButton.frame = CGRect(x: UIScreen.main.bounds.maxX - 66,
+                                           y: UIScreen.main.bounds.minY + 3,
+                                           width: 44,
+                                           height: 44)
         locationInputButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 2).isActive = true
-        locationInputButton.leftAnchor.constraint(equalTo: cityLabel.leftAnchor, constant: 11).isActive = true
-//        locationInputButton.frame = CGRect(x: self.cityLabel.frame.maxX,
-//                                           y: 111,
-//                                           width: 33,
-//                                           height: 33)
         
         // tempLabel constraints
         tempLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 1).isActive = true
@@ -204,7 +204,6 @@ class WeatherView: UIView { // UIScrollView?
                             })
             self.configureBackgroundColor(icon: viewModel.icon)
             self.backgroundColor = self.mainView.backgroundColor
-            //self.configureWeatherConditionVideo(icon: viewModel.icon)
             self.cityLabel.text = viewModel.locality
             self.tempLabel.text = viewModel.temp
             self.descriptionLabel.text = viewModel.weatherDescription + ", feels like " + viewModel.feelsLike
@@ -214,12 +213,7 @@ class WeatherView: UIView { // UIScrollView?
                                                      y: self.descriptionLabel.frame.maxY + 9, // + 11?
                                                      width: self.frame.width,
                                                      height: 111)
-//            self.hourlyCollectionView.anchr(top: windLabel.topAnchor,
-//                                            left: windLabel.rightAnchor) // damn anchorszzz
-            
-            
             self.hourlyCollectionView.set(cells: viewModel.hourlyWeather)
-            
             
             self.dailyTableView.anchr(top: self.hourlyCollectionView.bottomAnchor,
                                       left: self.safeAreaLayoutGuide.leftAnchor,
@@ -229,10 +223,6 @@ class WeatherView: UIView { // UIScrollView?
                                       paddingBottom: 1,
                                       paddingRight: 11
                                 )
-//            self.dailyTableView.frame = CGRect(x: 1,
-//                                               y: 1,
-//                                               width: self.frame.width - 44,
-//                                               height: DailyTableView.cellHeight * 7)
             self.dailyTableView.set(cells: viewModel.dailyWeather)
             
     }
@@ -246,4 +236,8 @@ class WeatherView: UIView { // UIScrollView?
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    @objc func showLocationInput() {
+        print("showLocationInput")
+    }
 }
