@@ -10,6 +10,7 @@ class UILabelWithPadding: UILabel {
     }
 }
 
+
 extension String {
     func capitalizingFirstLetter() -> String {
       return prefix(1).uppercased() + self.lowercased().dropFirst()
@@ -24,7 +25,7 @@ extension UILabel {
         let string = NSMutableAttributedString(string: text, attributes: [:])
         string.append(attachmentString)
         self.attributedText = string
-    }
+    }    
     func addLeading(image: UIImage, text:String) {
         let attachment = NSTextAttachment()
         attachment.image = image

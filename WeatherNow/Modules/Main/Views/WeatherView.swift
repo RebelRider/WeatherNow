@@ -5,9 +5,11 @@ import AVFoundation
 class WeatherView: UIView { // UIScrollView?
     
     //MARK: - private
+    private var expandedLocationInput = false
+    
     
     private var mainView: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.alpha = 0
         return view
@@ -19,11 +21,11 @@ class WeatherView: UIView { // UIScrollView?
         label.font = UIFont.systemFont(ofSize: 30)
         label.textAlignment = .center
         label.text = "loading data..."
-       return label
+        return label
     }()
     
     private var cityLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 35)
         label.textAlignment = .right
@@ -35,7 +37,7 @@ class WeatherView: UIView { // UIScrollView?
     
     
     private var locationInputButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.setImage(UIImage(systemName: "line.3.horizontal.decrease"), for: .highlighted)
         button.setImage(UIImage(systemName: "line.3.horizontal"), for: .normal)
         button.tintColor = .blue
@@ -50,11 +52,12 @@ class WeatherView: UIView { // UIScrollView?
         label.font = UIFont.systemFont(ofSize: 60, weight: .thin)
         label.textAlignment = .left
         label.text = "-"
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
     private var descriptionLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 12) // check Figma template!
         label.textAlignment = .right
@@ -63,44 +66,36 @@ class WeatherView: UIView { // UIScrollView?
     
     private var maxMinLabel: UILabel = {
         let label = UILabel()
-         label.translatesAutoresizingMaskIntoConstraints = false
-         label.font = UIFont.systemFont(ofSize: 9) // check Figma template!
-         label.textAlignment = .right
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 9) // check Figma template!
+        label.textAlignment = .right
         return label
-    }()
-    
-    private var containerHPW: UIStackView = {
-        let stack = UIStackView()
-        stack.alignment = .fill
-        stack.distribution = .fillEqually
-        stack.axis = .vertical
-        stack.backgroundColor = .red
-        return stack
     }()
     
     private var windLabel: UILabel = {
         let label = UILabel()
-         label.translatesAutoresizingMaskIntoConstraints = false
-         label.font = UIFont.systemFont(ofSize: 12) // check Figma template!
-         label.textAlignment = .right
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 12) // check Figma template!
+        label.textAlignment = .right
         label.text = "wind"
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
     private var pressureLabel: UILabel = {
         let label = UILabel()
-         label.translatesAutoresizingMaskIntoConstraints = false
-         label.font = UIFont.systemFont(ofSize: 12) // check Figma template!
-         label.textAlignment = .right
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 12) // check Figma template!
+        label.textAlignment = .right
         label.text = "pressure"
         return label
     }()
     
     private var humidityLabel: UILabel = {
         let label = UILabel()
-         label.translatesAutoresizingMaskIntoConstraints = false
-         label.font = UIFont.systemFont(ofSize: 12) // check Figma template!
-         label.textAlignment = .right
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 12) // check Figma template!
+        label.textAlignment = .right
         label.text = "humidity"
         return label
     }()
@@ -119,10 +114,9 @@ class WeatherView: UIView { // UIScrollView?
         mainView.addSubview(tempLabel)
         mainView.addSubview(descriptionLabel)
         mainView.addSubview(maxMinLabel)
-        //mainView.addSubview(containerHPW)
-            mainView.addSubview(windLabel)
-            mainView.addSubview(pressureLabel)
-            mainView.addSubview(humidityLabel)
+        mainView.addSubview(windLabel)
+        mainView.addSubview(pressureLabel)
+        mainView.addSubview(humidityLabel)
         mainView.addSubview(hourlyCollectionView)
         mainView.addSubview(dailyTableView)
         makeConstraints()
@@ -135,14 +129,12 @@ class WeatherView: UIView { // UIScrollView?
         loadingLabel.topAnchor.constraint(equalTo: topAnchor, constant: 180).isActive = true
         loadingLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
-        
         // mainView constraints
         mainView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         mainView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
         mainView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor).isActive = true
         mainView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor).isActive = true
         mainView.contentHuggingPriority(for: .vertical)
-        
         
         // cityLabel constraints
         cityLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 2).isActive = true
@@ -170,8 +162,6 @@ class WeatherView: UIView { // UIScrollView?
         maxMinLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 11).isActive = true
         maxMinLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
         
-        
-        
         // containerHPW internal constraints
         windLabel.topAnchor.constraint(equalTo:     maxMinLabel.bottomAnchor, constant: 11).isActive = true
         pressureLabel.topAnchor.constraint(equalTo: windLabel.bottomAnchor, constant: 11).isActive = true
@@ -180,15 +170,6 @@ class WeatherView: UIView { // UIScrollView?
         windLabel.leadingAnchor.constraint(equalTo:     safeAreaLayoutGuide.leadingAnchor, constant: 11).isActive = true
         pressureLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 11).isActive = true
         humidityLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 11).isActive = true
-        
-//        windSpeedLabel.rightAnchor.constraint(equalTo: maxMinLabel.rightAnchor, constant: 1).isActive = true
-//        pressureLabel.rightAnchor.constraint(equalTo: windLabel.rightAnchor, constant: 1).isActive = true
-//        windSpeedLabel.rightAnchor.constraint(equalTo: pressureLabel.rightAnchor, constant: 1).isActive = true
-        
-        // containerHPW constraints
-//        containerHPW.topAnchor.constraint(equalTo: maxMinLabel.bottomAnchor, constant: 1).isActive = true
-//        containerHPW.leadingAnchor.constraint(equalTo: maxMinLabel.leadingAnchor, constant: 1).isActive = true
-//        containerHPW.heightAnchor.constraint(equalToConstant: 38).isActive = true
     }
     
     //MARK: - configure
@@ -200,8 +181,8 @@ class WeatherView: UIView { // UIScrollView?
             
             UIView.animate(withDuration: 0.4, delay: 0.0, options: [.allowUserInteraction], animations:
                             { () -> Void in
-                                self.mainView.alpha = 1
-                            })
+                self.mainView.alpha = 1
+            })
             self.configureBackgroundColor(icon: viewModel.icon)
             self.backgroundColor = self.mainView.backgroundColor
             self.cityLabel.text = viewModel.locality
@@ -209,10 +190,18 @@ class WeatherView: UIView { // UIScrollView?
             self.descriptionLabel.text = viewModel.weatherDescription + ", feels like " + viewModel.feelsLike
             self.maxMinLabel.text = viewModel.maxMinTemp
             
-            self.hourlyCollectionView.frame = CGRect(x: self.humidityLabel.frame.maxX + 9, //
-                                                     y: self.descriptionLabel.frame.maxY + 9, // + 11?
+            self.windLabel.addLeading(    image: UIImage(systemName: "wind")!,      text: (" " + viewModel.windSpeed + "km/h, " + viewModel.windDirection))
+            self.pressureLabel.addLeading(image: UIImage(systemName: "barometer")!, text: (" " + viewModel.pressure + " hPa "))
+            self.humidityLabel.addLeading(image: UIImage(systemName: "humidity")!,  text: (" " + viewModel.humidity + "% "))
+            
+            
+            
+            self.hourlyCollectionView.frame = CGRect(x: self.windLabel.frame.maxX + 66, //
+                                                     y: self.windLabel.frame.maxY - 32, // + 11?
                                                      width: self.frame.width,
                                                      height: 111)
+            //self.hourlyCollectionView.anchr(top: self.windLabel.topAnchor)
+            
             self.hourlyCollectionView.set(cells: viewModel.hourlyWeather)
             
             self.dailyTableView.anchr(top: self.hourlyCollectionView.bottomAnchor,
@@ -222,14 +211,14 @@ class WeatherView: UIView { // UIScrollView?
                                       paddingLeft: 1,
                                       paddingBottom: 1,
                                       paddingRight: 11
-                                )
+            )
             self.dailyTableView.set(cells: viewModel.dailyWeather)
             
-    }
+        }
     }
     
     private func configureBackgroundColor(icon: String){
-            mainView.backgroundColor = .systemBackground
+        mainView.backgroundColor = .systemBackground
     }
     
     required init?(coder: NSCoder) {
@@ -239,5 +228,22 @@ class WeatherView: UIView { // UIScrollView?
     
     @objc func showLocationInput() {
         print("showLocationInput")
+        expandedLocationInput.toggle()
+        
+        if expandedLocationInput {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                self.mainView.frame.origin.y += 222
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                self.mainView.frame.origin.y -= 222
+            }, completion: nil)
+        }
+        
+        DispatchQueue.main.async {
+            //            let nav = UINavigationController(rootViewController: xxxx)
+            //            nav.present(nav, animated: true, completion: nil)
+        }
+        
     }
 }

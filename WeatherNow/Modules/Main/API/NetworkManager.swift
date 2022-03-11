@@ -33,7 +33,7 @@ struct NetworkManager: NetworkManagerProtocol{
     private func decodeJSON<T: Decodable>(type: T.Type, from: Data?) -> T?{
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        guard let data = from, let response = try? decoder.decode(type.self, from: data) else { print("Error decoding data...")
+        guard let data = from, let response = try? decoder.decode(type.self, from: data) else { print("DEBUG: Error decoding data...")
             return nil }
         return response
     }

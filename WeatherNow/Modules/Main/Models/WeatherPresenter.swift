@@ -80,26 +80,54 @@ class WeatherPresenter: WeatherPresentationLogic {
     }
     
     // add the necessary symbols to the temperature
-    private func setSign(temp: Int) -> String{
+    private func setSign(temp: Int) -> String {
         var currentTemp: String = ""
         guard temp >= 1 else { currentTemp = " \(temp)º"; return currentTemp }
         currentTemp = " +\(temp)º"
         return currentTemp
     }
     
+    private func directionOfDegrees(degree: Int) -> String {
+        var direction = "N"
+        
+        if degree > 337 {
+            direction = "N"
+        } else if degree > 292 {
+            direction = "NW"
+        } else if degree > 247 {
+            direction = "W"
+        } else if degree > 202 {
+            direction = "SW"
+        } else if degree > 157 {
+            direction = "S"
+        } else if degree > 112 {
+            direction = "SE"
+        } else if degree > 67 {
+            direction = "E"
+        } else if degree > 22 {
+            direction = "NE"
+        } else {
+            direction = "N"
+        }
+            
+        return direction
+    }
+    
     // convert data to CurrentWeatherViewModel
     private func headerViewModel(weatherModel: WeatherResponse, hourlyCells: [CurrentWeatherViewModel.Hourly], maxMinTemp: String, dailyCells: [CurrentWeatherViewModel.Daily], locality: String) -> CurrentWeatherViewModel{
+        print("DEBUG \(weatherModel.current.windDeg)")
         return CurrentWeatherViewModel.init(locality: locality,
                                             temp: setSign(temp: Int(weatherModel.current.temp)),
                                             weatherDescription: weatherModel.current.weather.first?.description ?? "null",
                                             icon: weatherModel.current.weather.first?.icon ?? "unknown",
                                             hourlyWeather: hourlyCells,
                                             maxMinTemp: maxMinTemp,
-                                            feelsLike: setSign(temp: Int(weatherModel.current.temp)), // SET FEELS LIKE
-                                            wind: "wind txt",
-                                            pressure: "pressure txt",
-                                            humidity: "hum txt",
-                                            dailyWeather: dailyCells)
+                                            dailyWeather: dailyCells,
+                                            feelsLike: setSign(temp: Int(weatherModel.current.feelsLike)),
+                                            windSpeed: String(Int(weatherModel.current.windSpeed)), // very bad converting...
+                                            windDirection: directionOfDegrees(degree: weatherModel.current.windDeg),
+                                            pressure: String(weatherModel.current.pressure),
+                                            humidity: String(weatherModel.current.humidity))
     }
     
 }
