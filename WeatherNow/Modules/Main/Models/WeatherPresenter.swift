@@ -108,14 +108,14 @@ class WeatherPresenter: WeatherPresentationLogic {
             direction = "NE"
         } else {
             direction = "N"
-        }
+        } //eenummm
             
         return direction
     }
     
     // convert data to CurrentWeatherViewModel
     private func headerViewModel(weatherModel: WeatherResponse, hourlyCells: [CurrentWeatherViewModel.Hourly], maxMinTemp: String, dailyCells: [CurrentWeatherViewModel.Daily], locality: String) -> CurrentWeatherViewModel{
-        print("DEBUG \(weatherModel.current.windDeg)")
+        print("DEBUG: wing degrees: \(weatherModel.current.windDeg)")
         return CurrentWeatherViewModel.init(locality: locality,
                                             temp: setSign(temp: Int(weatherModel.current.temp)),
                                             weatherDescription: weatherModel.current.weather.first?.description ?? "null",
