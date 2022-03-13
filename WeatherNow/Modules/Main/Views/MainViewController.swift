@@ -10,7 +10,7 @@ class MainViewController: UIViewController, WeatherDisplayLogic {
     
     var interactor: DataUpdater?
     let weatherView = WeatherView()
-    let locationInputView = LocationInputView()
+    let locationInputView = LocationInputView() //
     
     // MARK: - Setup
     private func ConfigureUI() {

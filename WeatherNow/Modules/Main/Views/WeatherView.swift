@@ -145,7 +145,7 @@ class WeatherView: UIView { // UIScrollView?
                                            y: UIScreen.main.bounds.minY + 3,
                                            width: 44,
                                            height: 44)
-        locationInputButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 2).isActive = true
+        //locationInputButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 2).isActive = true
         
         // tempLabel constraints
         tempLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 1).isActive = true
