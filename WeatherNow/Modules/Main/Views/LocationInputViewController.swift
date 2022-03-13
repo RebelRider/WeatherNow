@@ -3,7 +3,7 @@
 
 import UIKit
 
-class LocationInputView: UIViewController, WeatherDisplayLogic {
+class LocationInputViewController: UIViewController, WeatherDisplayLogic {
 
     
     func displayData(viewModel: WeatherEnum.Model.ViewModel.ViewModelData) {

@@ -6,11 +6,11 @@ protocol WeatherDisplayLogic: AnyObject {
     func displayData(viewModel: WeatherEnum.Model.ViewModel.ViewModelData)
 }
 
-class MainViewController: UIViewController, WeatherDisplayLogic {
+class MainViewController: UIViewController, WeatherDisplayLogic, WeatherViewDelegate {
     
     var interactor: DataUpdater?
     let weatherView = WeatherView()
-    let locationInputView = LocationInputView() //
+    let locationInputView = LocationInputViewController() //
     
     // MARK: - Setup
     private func ConfigureUI() {
@@ -26,6 +26,7 @@ class MainViewController: UIViewController, WeatherDisplayLogic {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        weatherView.weatherViewDelegate = self
         ConfigureUI()
     
         view.addSubview(weatherView)
@@ -49,5 +50,12 @@ class MainViewController: UIViewController, WeatherDisplayLogic {
             weatherView.configure(viewModel: currentWeatherViewModel)
         }
     }
+    
+    //MARK: - show locatnInput
+    
+    func showLocationInput() {
+        print("DEBUG: show location input")
+            //self.navigationController?.pushViewController(locationInputViewController, animated: true)
+        }
     
 }

@@ -6,7 +6,7 @@ class WeatherView: UIView { // UIScrollView?
     
     //MARK: - private
     private var expandedLocationInput = false
-    
+    weak var weatherViewDelegate: WeatherViewDelegate?
     
     private var mainView: UIView = {
         let view = UIView()
@@ -227,23 +227,12 @@ class WeatherView: UIView { // UIScrollView?
     
     
     @objc func showLocationInput() {
-        print("showLocationInput")
-        expandedLocationInput.toggle()
-        
-        if expandedLocationInput {
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-                self.mainView.frame.origin.y += 222
-            }, completion: nil)
-        } else {
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-                self.mainView.frame.origin.y -= 222
-            }, completion: nil)
-        }
-        
-        DispatchQueue.main.async {
-            //            let nav = UINavigationController(rootViewController: xxxx)
-            //            nav.present(nav, animated: true, completion: nil)
-        }
+        print("showLocationInput button pressed")
+        weatherViewDelegate?.showLocationInput()
         
     }
+}
+
+protocol WeatherViewDelegate: AnyObject {
+    func showLocationInput()
 }
