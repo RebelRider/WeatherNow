@@ -7,40 +7,42 @@ protocol WeatherDisplayLogic: AnyObject {
 }
 
 class MainViewController: UIViewController, WeatherDisplayLogic, WeatherViewDelegate {
-    
+        
     var interactor: DataUpdater?
+    var presenter: WeatherPresenter?
     let weatherView = WeatherView()
-    let locationInputView = LocationInputViewController() //
     
     // MARK: - Setup
-    private func ConfigureUI() {
+    private func Configure() {
         let viewController        = self
         let interactor            = WeatherInteractor()
         let presenter             = WeatherPresenter()
+        let router                = WeatherRouter()
+        router.viewController     = viewController
         viewController.interactor = interactor
+        viewController.presenter  = presenter
         interactor.presenter      = presenter
         presenter.viewController  = viewController
+        presenter.router          = router
     }
 
     // MARK: - View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         weatherView.weatherViewDelegate = self
-        ConfigureUI()
-    
+        Configure()
         view.addSubview(weatherView)
         weatherView.frame = self.view.frame
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
         super.viewWillAppear(true)
         interactor?.makeRequest(request: .getWeather)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        //weatherView.contentSize = CGSize(width:self.view.bounds.width, height: 888) // make it all a scrollView?
     }
     
     //MARK: - displayData
@@ -52,10 +54,9 @@ class MainViewController: UIViewController, WeatherDisplayLogic, WeatherViewDele
     }
     
     //MARK: - show locatnInput
-    
     func showLocationInput() {
         print("DEBUG: show location input")
-            //self.navigationController?.pushViewController(locationInputViewController, animated: true)
-        }
+        presenter?.onShowLocationInput()
+    }
     
 }

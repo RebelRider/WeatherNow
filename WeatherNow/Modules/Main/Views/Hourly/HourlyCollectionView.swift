@@ -22,8 +22,8 @@ class HourlyCollectionView: UICollectionView, UICollectionViewDataSource, UIColl
         backgroundColor = .clear
         showsHorizontalScrollIndicator = false
         showsVerticalScrollIndicator = false
-        contentInset.left = 3
-        contentInset.right = 3
+//        contentInset.left = 3
+//        contentInset.right = 3
         
         register(HourlyCollectionViewCell.self, forCellWithReuseIdentifier: HourlyCollectionViewCell.reuseId)
     }

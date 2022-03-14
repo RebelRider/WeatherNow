@@ -145,7 +145,6 @@ class WeatherView: UIView { // UIScrollView?
                                            y: UIScreen.main.bounds.minY + 3,
                                            width: 44,
                                            height: 44)
-        //locationInputButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 2).isActive = true
         
         // tempLabel constraints
         tempLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 1).isActive = true
@@ -195,13 +194,10 @@ class WeatherView: UIView { // UIScrollView?
             self.humidityLabel.addLeading(image: UIImage(systemName: "humidity")!,  text: (" " + viewModel.humidity + "% "))
             
             
-            
             self.hourlyCollectionView.frame = CGRect(x: self.windLabel.frame.maxX + 66, //
                                                      y: self.windLabel.frame.maxY - 32, // + 11?
                                                      width: self.frame.width,
                                                      height: 111)
-            //self.hourlyCollectionView.anchr(top: self.windLabel.topAnchor)
-            
             self.hourlyCollectionView.set(cells: viewModel.hourlyWeather)
             
             self.dailyTableView.anchr(top: self.hourlyCollectionView.bottomAnchor,
@@ -210,8 +206,7 @@ class WeatherView: UIView { // UIScrollView?
                                       right: self.safeAreaLayoutGuide.rightAnchor,
                                       paddingLeft: 1,
                                       paddingBottom: 1,
-                                      paddingRight: 11
-            )
+                                      paddingRight: 11)
             self.dailyTableView.set(cells: viewModel.dailyWeather)
             
         }
@@ -223,8 +218,7 @@ class WeatherView: UIView { // UIScrollView?
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
+    }    
     
     @objc func showLocationInput() {
         print("showLocationInput button pressed")

@@ -3,11 +3,12 @@
 
 import UIKit
 
-class LocationInputViewController: UIViewController, WeatherDisplayLogic {
-
-    
-    func displayData(viewModel: WeatherEnum.Model.ViewModel.ViewModelData) {
-        //
+class LocationInputViewController: UIViewController {
+    // MARK: - View lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = false
+        view.backgroundColor = .green
     }
-
-}
+    
+    }

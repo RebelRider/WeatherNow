@@ -12,18 +12,10 @@ protocol WeatherPresentationLogic {
     func presentData(response: WeatherEnum.Model.Response.ResponseType)
 }
 
-protocol WeatherRoutingLogic {
-}
-
-
-
-class WeatherRouter: NSObject, WeatherRoutingLogic {
-  weak var viewController: MainViewController?
-}
-
-
 class WeatherPresenter: WeatherPresentationLogic {
+    
     weak var viewController: WeatherDisplayLogic?
+    var router: WeatherRouter?
     
     let dateFormatter: DateFormatter = {
         let dt = DateFormatter()
@@ -31,6 +23,10 @@ class WeatherPresenter: WeatherPresentationLogic {
         return dt
     }()
     
+    //MARK: - button handler
+    func onShowLocationInput() {
+            router?.showLocationInput()
+        }
     
     //MARK: - presentData
     func presentData(response: WeatherEnum.Model.Response.ResponseType) {
