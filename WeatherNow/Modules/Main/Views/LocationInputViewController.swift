@@ -9,6 +9,7 @@ class LocationInputViewController: UIViewController, UITableViewDelegate, UITabl
         button.titleLabel?.font = UIFont.systemFont(ofSize: 22)
         button.setTitle("  Add Location ", for: .normal)
         button.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
+        button.addTarget(self, action: #selector(showSearchForPlace), for: .touchUpInside)
         return button
     }()
     
@@ -17,9 +18,9 @@ class LocationInputViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         view.backgroundColor = .systemBackground
         self.navigationController?.navigationBar.isHidden = false
+        self.navigationItem.title = "Locations"
+        
         super.viewDidLoad()
-        
-        
 
         
         let displayWidth: CGFloat = self.view.frame.width
@@ -51,5 +52,10 @@ class LocationInputViewController: UIViewController, UITableViewDelegate, UITabl
         let cell = tableView.dequeueReusableCell(withIdentifier: "placeCell", for: indexPath as IndexPath)
         cell.textLabel!.text = "\(myArray[indexPath.row])"
         return cell
+    }
+    
+    @objc func showSearchForPlace() {
+        print("showSearchForPlace button pressed")
+        
     }
 }
