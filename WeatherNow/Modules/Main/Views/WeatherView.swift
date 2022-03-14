@@ -194,7 +194,7 @@ class WeatherView: UIView { // UIScrollView?
             self.humidityLabel.addLeading(image: UIImage(systemName: "humidity")!,  text: (" " + viewModel.humidity + "% "))
             
             
-            self.hourlyCollectionView.frame = CGRect(x: self.windLabel.frame.maxX + 66, //
+            self.hourlyCollectionView.frame = CGRect(x: self.windLabel.frame.maxX + 65, //
                                                      y: self.windLabel.frame.maxY - 32, // + 11?
                                                      width: self.frame.width,
                                                      height: 111)

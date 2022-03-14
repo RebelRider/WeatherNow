@@ -33,12 +33,14 @@ class MainViewController: UIViewController, WeatherDisplayLogic, WeatherViewDele
         Configure()
         view.addSubview(weatherView)
         weatherView.frame = self.view.frame
+        
+        interactor?.makeRequest(request: .getWeather)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
         super.viewWillAppear(true)
-        interactor?.makeRequest(request: .getWeather)
+        
     }
     
     override func viewDidLayoutSubviews() {

@@ -4,6 +4,9 @@ import UIKit
 
 class LocationInputTableView: UITableView, UITableViewDataSource, UITableViewDelegate{
     
+   
+       
+    
     var cells: [CurrentWeatherViewModel.Daily]?
     
     static let cellHeight:CGFloat = 77 // check Figma template!
@@ -13,7 +16,7 @@ class LocationInputTableView: UITableView, UITableViewDataSource, UITableViewDel
         super.init(frame: .zero, style: .plain)
         delegate = self
         dataSource = self
-        backgroundColor = .clear
+        backgroundColor = .blue
         isScrollEnabled = true
         allowsSelection = false
         register(DailyTableViewCell.self, forCellReuseIdentifier: DailyTableViewCell.reuseId)
